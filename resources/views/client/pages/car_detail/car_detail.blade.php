@@ -10,11 +10,7 @@
                     <div class="cta-content">
                         <br>
                         <br>
-
-
                         <h1 style="color: #ed563b; font-weight:600;">{{ $car[0]->name }}</h1>
-
-
                     </div>
                 </div>
             </div>
@@ -514,8 +510,8 @@
                                         {{-- <a data-url="{{ route('product.add-to-cart', ['productId' => $product->id]) }}"
                                             href="#" class="add-to-cart"><i class="fa fa-shopping-cart"></i></a></li> --}}
                                         <form id=""
-                                            action="{{ route('client.add_to_cart', ['id' => $car[0]->id]) }}" style="display: flex; flex-direction: column;gap: 4px;"
-                                            method="post">
+                                            action="{{ route('client.add_to_cart', ['id' => $car[0]->id]) }}"
+                                            style="display: flex; flex-direction: column;gap: 4px;" method="post">
                                             @csrf
                                             <div>
                                                 <input class="" type="radio" name="checkBuy" id="checkBuy"
@@ -531,7 +527,8 @@
                                             </div> --}}
 
 
-                                                <button type="submit" onclick="return alert('Car Added')" style="width: fit-content; height:fit-content; background-color:#ed563b; color:#fff; padding: 6px 20px; border:2px#ff5334 solid;">Confirm</button>
+                                            <button type="submit" onclick="return alert('Car Added')"
+                                                style="width: fit-content; height:fit-content; background-color:#ed563b; color:#fff; padding: 6px 20px; border:2px#ff5334 solid;">Confirm</button>
 
 
 
