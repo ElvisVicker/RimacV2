@@ -15,7 +15,7 @@
             <div class="col-xl-12">
                 <div class="ibox">
                     <div class="ibox-head">
-                        <div class="ibox-title">All Brands</div>
+                        <div class="ibox-title">All Categories</div>
                         <a href="{{ route('admin.car_category.create') }}">
                             <button class="btn btn-success" style="cursor: pointer;">Create New Category</button></a>
                     </div>
@@ -116,7 +116,7 @@
                             <tr name="sortBy">
                                 <th scope="col">#</th>
                                 <th scope="col">Name</th>
-                          
+
                                 <th scope="col">Rent Price</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Action</th>
@@ -134,7 +134,7 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $carCategory->name }}</td>
-                               
+
                                     <td>{{ $carCategory->rent_price }}</td>
                                     <td>
 

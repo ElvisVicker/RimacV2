@@ -82,10 +82,19 @@
 
 
                             <div class="form-group col-md-4">
-                                <label style="font-weight:bold;">*Price</label>
-                                <input type="text" class="form-control" id="price" name="price"
-                                    value="{{ old('price') }}" placeholder="Price">
-                                @error('price')
+                                <label style="font-weight:bold;">*Import Price</label>
+                                <input type="text" class="form-control" id="import_price" name="import_price"
+                                    value="{{ old('import_price') }}" placeholder="Import price">
+                                @error('import_price')
+                                    <div class="p-2 mb-4 bg-danger text-white">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label style="font-weight:bold;">*Export Price</label>
+                                <input type="text" class="form-control" id="export_price" name="export_price"
+                                    value="{{ old('export_price') }}" placeholder="Export Price">
+                                @error('export_price')
                                     <div class="p-2 mb-4 bg-danger text-white">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -323,6 +332,9 @@
 
 
                         <input class="btn btn-primary" type="submit" value="Submit" style="cursor: pointer;">
+                        <a class="btn btn-success" style="cursor: pointer;" href="{{ route('admin.car.index') }}">Back
+                            to
+                            list</a>
                     </form>
                 </div>
             </div>
@@ -379,7 +391,7 @@
 
                     <div class="form-floating">
                         <textarea class="form-control" placeholder="Description" name="description" id="description">{{ old('description') }}</textarea>
-                      
+
                     </div>
                     @error('description')
                         <div class="p-2 mb-4 bg-danger text-white">{{ $message }}</div>

@@ -331,7 +331,7 @@
                                     <label class="labelCustom">Price</label>
 
                                     <p class="paraCustom" style="color: #ed563b  !important; font-weight:600;">
-                                        {{ number_format($car[0]->price + (15 / 100) * $car[0]->price, 2) }}$</p>
+                                        {{ number_format($car[0]->export_price, 2) }}$</p>
                                 </div>
 
 
@@ -342,6 +342,7 @@
                                         <img height="50" src="{{ asset('images/' . $car[0]->brand_image) }}"
                                             alt=""> <span>
                                             {{-- <p class="paraCustom">{{ $car[0]->brand_name }}</p> --}}
+
                                         </span>
                                     </div>
                                 </div>
@@ -364,11 +365,7 @@
                                     <p class="paraCustom">{{ $car[0]->color }}</p>
                                 </div>
 
-                                <div class="col-sm-6 mb-4">
-                                    <label class="labelCustom">Rent Price</label>
 
-                                    <p class="paraCustom">{{ $car[0]->car_category_rent_price }} USD/day</p>
-                                </div>
 
                                 <div class="col-sm-6 mb-4">
                                     <label class="labelCustom">Width</label>
@@ -503,9 +500,27 @@
 
                             <div class="col-lg-12 col-md-12 col-xs-12 p-3 buy-form">
                                 <div class="custom-buy-form">
-                                    <h4>Do you want to buy this car?</h4>
+                                    <h4>Do you confirm to buy this car?</h4>
 
-                                    <div class="checkForm col-md-6 col-sm-12">
+                                    <div class="checkForm col-md-12 col-sm-12">
+
+
+
+                                        @php
+                                            $cookie = Cookie::get('allCarId');
+                                            $cookieArray = explode(',', json_decode($cookie));
+                                            $checkExistCart = true;
+                                            foreach ($cookieArray as $id) {
+                                                $id = (int) $id;
+                                                if ($car[0]->id === $id) {
+                                                    $checkExistCart = false;
+                                                }
+                                            }
+                                        @endphp
+
+
+
+
 
                                         {{-- <a data-url="{{ route('product.add-to-cart', ['productId' => $product->id]) }}"
                                             href="#" class="add-to-cart"><i class="fa fa-shopping-cart"></i></a></li> --}}
@@ -513,29 +528,29 @@
                                             action="{{ route('client.add_to_cart', ['id' => $car[0]->id]) }}"
                                             style="display: flex; flex-direction: column;gap: 4px;" method="post">
                                             @csrf
-                                            <div>
-                                                <input class="" type="radio" name="checkBuy" id="checkBuy"
-                                                    value="1">
-                                                <label>Yes, I do</label>
-                                                @error('checkBuy')
-                                                    <div class="p-2 mb-4 bg-danger text-white">{{ $message }}</div>
-                                                @enderror
-                                            </div>
 
-                                            {{-- <div class="main-button">
-                                                <button  type="submit">Confirm</button>
-                                            </div> --}}
-
-
-                                            <button type="submit" onclick="return alert('Car Added')"
-                                                style="width: fit-content; height:fit-content; background-color:#ed563b; color:#fff; padding: 6px 20px; border:2px#ff5334 solid;">Confirm</button>
+                                            @if (auth()->check() && auth()->user()->role === 0)
+                                                {{-- {{ dd($checkExistCart) }} --}}
 
 
 
+
+                                                @if ($checkExistCart === true)
+                                                    <button type="submit" onclick="return alert('Car Added')"
+                                                        style="width: fit-content; height:fit-content; background-color:#ed563b; color:#fff; padding: 6px 20px; border:2px#ff5334 solid;">
+                                                        Confirm</button>
+                                                @else
+                                                    <a onclick="return alert('Car has already added in cart')"
+                                                        style="width: fit-content; height:fit-content; background-color:#ed563b; color:#fff; padding: 6px 20px; border:2px#ff5334 solid;"
+                                                        href="{{ route('client.cart') }}">Confirm</a>
+                                                @endif
+                                            @else
+                                                <a onclick="return alert('You must login to continue')"
+                                                    href="{{ route('login') }}"
+                                                    style="width: fit-content; height:fit-content; background-color:#ed563b; color:#fff; padding: 6px 20px; border:2px#ff5334 solid;">
+                                                    Confirm</a>
+                                            @endif
                                         </form>
-
-
-
                                     </div>
                                 </div>
                             </div>

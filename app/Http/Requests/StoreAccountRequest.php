@@ -26,7 +26,7 @@ class StoreAccountRequest extends FormRequest
             'middle_name' => 'min:0|max:255',
             'last_name' => 'required|min:2|max:255',
             'gender' => 'required',
-            'role' => 'required',
+            // 'role' => 'required',
             'email' => 'required|min:3|max:255|email|unique:users,email',
             // 'password' => 'required',
             // 'status' => 'required',

@@ -150,7 +150,10 @@
                             <div class="image-thumb">
                                 @php
                                     $firstCarImage = explode(',', $car->image)[0];
-                                    $imagesLink = $firstCarImage == '' || !file_exists('images/' . $firstCarImage) ? 'https://phutungnhapkhauchinhhang.com/wp-content/uploads/2020/06/default-thumbnail.jpg' : asset('images/' . $firstCarImage);
+                                    $imagesLink =
+                                        $firstCarImage == '' || !file_exists('images/' . $firstCarImage)
+                                            ? 'https://phutungnhapkhauchinhhang.com/wp-content/uploads/2020/06/default-thumbnail.jpg'
+                                            : asset('images/' . $firstCarImage);
                                 @endphp
                                 <img src="{{ $imagesLink }}" alt="" class="imgCus" srcset="">
                                 {{-- <img src="assets/images/product-1-720x480.jpg" alt=""> --}}
@@ -164,7 +167,7 @@
 
                                     <div style="font-weight: 600; font-size:20px">{{ $car->name }}</div>
                                     <div style="color: #ed563b; font-weight:600;">
-                                        {{ number_format($car->price + (15 / 100) * $car->price, 2) }} $
+                                        {{ number_format($car->export_price, 2) }} $
                                     </div>
                                 </div>
 
@@ -199,7 +202,10 @@
                             <div class="image-thumb imgContainer">
                                 @php
                                     $firstCarImage = explode(',', $car->image)[0];
-                                    $imagesLink = $firstCarImage == '' || !file_exists('images/' . $firstCarImage) ? 'https://phutungnhapkhauchinhhang.com/wp-content/uploads/2020/06/default-thumbnail.jpg' : asset('images/' . $firstCarImage);
+                                    $imagesLink =
+                                        $firstCarImage == '' || !file_exists('images/' . $firstCarImage)
+                                            ? 'https://phutungnhapkhauchinhhang.com/wp-content/uploads/2020/06/default-thumbnail.jpg'
+                                            : asset('images/' . $firstCarImage);
                                 @endphp
                                 <img src="{{ $imagesLink }}" alt="" class="imgCus" srcset="">
                                 {{-- <img src="assets/images/product-1-720x480.jpg" alt=""> --}}
@@ -215,7 +221,7 @@
 
                                     <div style="font-weight: 600; font-size:20px">{{ $car->name }}</div>
                                     <div style="color: #ed563b;font-weight: 600;">
-                                        {{ number_format($car->price + (15 / 100) * $car->price, 2) }} $
+                                        {{ number_format($car->export_price, 2) }} $
                                     </div>
                                 </div>
 

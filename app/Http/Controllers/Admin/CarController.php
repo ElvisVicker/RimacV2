@@ -17,13 +17,13 @@ class CarController extends Controller
         $cars = DB::table('cars')
             ->select(
                 'cars.*',
-                'car_categories.name as car_category_name',
-                'car_categories.rent_price as car_category_rent_price',
+                'categories.name as car_category_name',
+
                 'brands.name as brand_name',
                 'brands.image as brand_image',
 
             )
-            ->join('car_categories', 'cars.car_category_id', '=', 'car_categories.id')
+            ->join('categories', 'cars.car_category_id', '=', 'categories.id')
             ->join('brands', 'cars.brand_id', '=', 'brands.id')
 
             ->orderBy('created_at', 'desc')
@@ -36,7 +36,7 @@ class CarController extends Controller
 
     public function create()
     {
-        $carCategories = DB::table('car_categories')->whereNull('deleted_at')->where('status', '=', 1)->get();
+        $carCategories = DB::table('categories')->whereNull('deleted_at')->where('status', '=', 1)->get();
         $brands = DB::table('brands')->whereNull('deleted_at')->where('status', '=', 1)->get();
 
         return view('admin.pages.car.create', ['carCategories' => $carCategories, 'brands' => $brands]);
@@ -66,8 +66,10 @@ class CarController extends Controller
         $check = DB::table('cars')->insert([
             "name" => $request->name,
             "slug" => $request->slug,
-            "price" => $request->price,
+            "import_price" => $request->import_price,
+            "export_price" => $request->export_price,
             "description" => $request->description,
+            "quantity" => 0,
             "model" => $request->model,
             "color" => $request->color,
             "fueltype" => $request->fueltype,
@@ -102,7 +104,7 @@ class CarController extends Controller
     public function show(string $id)
     {
         $car = DB::table('cars')->find($id);
-        $carCategories = DB::table('car_categories')->whereNull('deleted_at')->where('status', '=', 1)->get();
+        $carCategories = DB::table('categories')->whereNull('deleted_at')->where('status', '=', 1)->get();
         $brands = DB::table('brands')->whereNull('deleted_at')->where('status', '=', 1)->get();
         return view('admin.pages.car.detail', ['car' => $car, 'carCategories' => $carCategories, 'brands' => $brands]);
     }
@@ -141,7 +143,8 @@ class CarController extends Controller
         $check = DB::table('cars')->where('id', '=', $id)->update([
             "name" => $request->name,
             "slug" => $request->slug,
-            "price" => $request->price,
+            "import_price" => $request->import_price,
+            "export_price" => $request->export_price,
             "description" => $request->description,
             "model" => $request->model,
             "color" => $request->color,

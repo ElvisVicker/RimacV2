@@ -33,7 +33,7 @@ class BrandController extends Controller
 
         $check = DB::table('brands')->insert([
             "name" => $request->name,
-            "description" => $request->description,
+            // "description" => $request->description,
             "status" => 1,
             "image" => $fileName ?? null,
             "created_at" => Carbon::now(),
@@ -74,7 +74,7 @@ class BrandController extends Controller
 
         $check = DB::table('brands')->where('id', '=', $id)->update([
             "name" => $request->name,
-            "description" => $request->description,
+            // "description" => $request->description,
             "status" => 1,
             "image" => $fileName ?? $oldImageFileName,
             "updated_at" => Carbon::now()

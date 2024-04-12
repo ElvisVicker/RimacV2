@@ -14,7 +14,7 @@ class CarCategoryController extends Controller
 
     public function index(Request $request)
     {
-        $carCategories = DB::table('car_categories')->orderBy('created_at', 'desc')->paginate(10);
+        $carCategories = DB::table('categories')->orderBy('created_at', 'desc')->paginate(10);
         return view('admin.pages.car_category.list', ['carCategories' => $carCategories]);
     }
 
@@ -25,10 +25,10 @@ class CarCategoryController extends Controller
 
     public function store(StoreCarCategoryRequest $request)
     {
-        $check = DB::table('car_categories')->insert([
+        $check = DB::table('categories')->insert([
             "name" => $request->name,
-            "description" => $request->description,
-            "rent_price" => 1,
+            // "description" => $request->description,
+            // "rent_price" => 1,
             "status" => 1,
             "created_at" => Carbon::now(),
             "updated_at" => Carbon::now()
@@ -40,7 +40,7 @@ class CarCategoryController extends Controller
 
     public function show(string $id)
     {
-        $carCategory = DB::table('car_categories')->find($id);
+        $carCategory = DB::table('categories')->find($id);
         return view('admin.pages.car_category.detail', ['carCategory' => $carCategory]);
     }
 
@@ -50,9 +50,9 @@ class CarCategoryController extends Controller
 
     public function update(StoreCarCategoryRequest $request, string $id)
     {
-        $check = DB::table('car_categories')->where('id', '=', $id)->update([
+        $check = DB::table('categories')->where('id', '=', $id)->update([
             "name" => $request->name,
-            "description" => $request->description,
+            // "description" => $request->description,
             // "rent_price" => 1,
             // "status" => 1,
             "updated_at" => Carbon::now()
@@ -64,7 +64,7 @@ class CarCategoryController extends Controller
 
     public function destroy(string $id)
     {
-        DB::table('car_categories')->where('id', '=', $id)->update([
+        DB::table('categories')->where('id', '=', $id)->update([
             "status" => 0
         ]);
 
@@ -78,7 +78,7 @@ class CarCategoryController extends Controller
     {
         $carCategoryData = CarCategory::withTrashed()->find($id);
         $carCategoryData->restore();
-        DB::table('car_categories')->where('id', '=', $id)->update([
+        DB::table('categories')->where('id', '=', $id)->update([
             "status" => 1
         ]);
 

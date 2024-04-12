@@ -9,12 +9,19 @@ use App\Http\Controllers\Admin\CarController;
 use App\Http\Controllers\Admin\CarImagesController;
 use App\Http\Controllers\Admin\ChartController;
 use App\Http\Controllers\Admin\ContactController;
+use App\Http\Controllers\Admin\EmployeeController;
+use App\Http\Controllers\Admin\ExportOrderController;
+use App\Http\Controllers\Admin\FunctionController;
+use App\Http\Controllers\Admin\ImportOrderController;
+use App\Http\Controllers\Admin\OrderCategoryController;
+use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RentOrderController as AdminRentOrderController;
 use App\Http\Controllers\Client\BuyController;
 use App\Http\Controllers\Client\CarController as ClientCarController;
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Client\ContactController as ClientContactController;
 use App\Http\Controllers\Client\HomeController;
+use App\Http\Controllers\Client\LibraryController;
 use App\Http\Controllers\Client\PageController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
@@ -54,48 +61,72 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__ . '/auth.php';
 
-
+// ->middleware('auth.admin')
 Route::prefix('')->middleware('auth.admin')->name('admin.')->group(function () {
-    // Account
-    Route::resource('account', AccountController::class);
-    Route::get('account/{account}/restore', [AccountController::class, 'restore'])->name('account.restore');
+    // Function
+    // Route::resource('functions', FunctionController::class);
+    Route::resource('permissions', PermissionController::class);
+    Route::get('permissions/{permission}/restore', [PermissionController::class, 'restore'])->name('permissions.restore');
+    // Route::resource('account', AccountController::class);
+    Route::resource('employees', EmployeeController::class);
+    Route::get('employees/{employee}/restore', [EmployeeController::class, 'restore'])->name('employees.restore');
 
-    // Car Category
+    Route::resource('order_categories', OrderCategoryController::class);
+    // // Account
+    // Route::resource('account', AccountController::class);
+    // Route::get('account/{account}/restore', [AccountController::class, 'restore'])->name('account.restore');
+
+    // // Car Category
     Route::resource('car_category', CarCategoryController::class);
     Route::get('car_category/{car_category}/restore', [CarCategoryController::class, 'restore'])->name('car_category.restore');
 
 
-    // Brand
+    // // Brand
     Route::resource('brand', BrandController::class);
     Route::get('brand/{brand}/restore', [BrandController::class, 'restore'])->name('brand.restore');
 
-    // Buyer
-    Route::resource('buyer', BuyerController::class);
-    Route::get('buyer/{buyer}/restore', [BuyerController::class, 'restore'])->name('buyer.restore');
+    // // Buyer
+    // Route::resource('buyer', BuyerController::class);
+    // Route::get('buyer/{buyer}/restore', [BuyerController::class, 'restore'])->name('buyer.restore');
 
-    // Car
+    // // Car
     Route::resource('car', CarController::class);
     Route::get('car/{car}/restore', [CarController::class, 'restore'])->name('car.restore');
     Route::post('car/slug', [CarController::class, 'createSlug'])->name('car.create.slug');
 
-    // Contact
-    Route::resource('contact', ContactController::class);
 
-    //Buy Order
-    Route::resource('buy_order', AdminBuyOrderController::class);
+    Route::resource('import_order', ImportOrderController::class);
 
-    //Dashboard
-    Route::get('chart', [ChartController::class, 'index'])->name('chart');
+
+    Route::resource('export_order', ExportOrderController::class);
+
+
+
+
+
+
+
+
+
+
+    // // Contact
+    // Route::resource('contact', ContactController::class);
+
+    // //Buy Order
+    // Route::resource('buy_order', AdminBuyOrderController::class);
+
+    // //Dashboard
+    // Route::get('chart', [ChartController::class, 'index'])->name('chart');
 });
 
 
-Route::prefix('staff')->middleware('auth.staff')->name('staff.')->group(function () {
-    Route::resource('buyer', StaffBuyerController::class);
-    Route::get('buyer/send_to_order/{id}', [StaffBuyerController::class, 'sendToOrder'])->name('buyer.send_to_order');
-    Route::resource('contact', StaffContactController::class);
-    Route::resource('buy_order', BuyOrderController::class);
-});
-
+// Route::prefix('staff')->middleware('auth.staff')->name('staff.')->group(function () {
+//     Route::resource('buyer', StaffBuyerController::class);
+//     Route::get('buyer/send_to_order/{id}', [StaffBuyerController::class, 'sendToOrder'])->name('buyer.send_to_order');
+//     Route::resource('contact', StaffContactController::class);
+//     Route::resource('buy_order', BuyOrderController::class);
+// });
+// ->middleware('auth.customer')
 
 Route::prefix('client')->name('client.')->group(function () {
     Route::get('home', [HomeController::class, 'index'])->name('home');
@@ -103,6 +134,9 @@ Route::prefix('client')->name('client.')->group(function () {
     Route::post('cars', [ClientCarController::class, 'index'])->name('cars');
     Route::get('detail/{id?}/{slug}', [ClientCarController::class, 'detail'])->name('detail');
     Route::post('detail/store', [BuyController::class, 'store'])->name('detail.store');
+
+    Route::resource('library', LibraryController::class);
+
     Route::get('contact', [ClientContactController::class, 'index'])->name('contact');
     Route::post('contact', [ClientContactController::class, 'store'])->name('contact.store');
     Route::get('about', [PageController::class, 'toAbout'])->name('about');

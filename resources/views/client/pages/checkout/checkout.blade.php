@@ -10,7 +10,7 @@
             <h4 style="font-weight: bold;display: flex; justify-content:center;">Your Information</h4>
             <form id="buy" action="{{ route('client.detail.store') }}" method="post">
                 @csrf
-                @method("post")
+                @method('post')
                 <div class="row">
                     <h5 class="col-md-12 col-sm-12 mb-4">Basic Information</h5>
 
@@ -19,7 +19,7 @@
                             <input class="buyInput" name="first_name" type="text" id="first_name"
                                 value="{{ old('first_name') }}" placeholder="First Name">
                         </fieldset>
-                         @error('first_name')
+                        @error('first_name')
                             <div class="p-2 mb-4 bg-danger text-white">{{ $message }}</div>
                         @enderror
                     </div>
@@ -41,7 +41,7 @@
                         @enderror
                     </div>
                     <hr>
-                    <h4  class="col-md-12 col-sm-12 mb-4">Contact</h4>
+                    <h4 class="col-md-12 col-sm-12 mb-4">Contact</h4>
                     <div class="col-md-6 col-sm-6 mb-4">
                         <fieldset>
                             <input class="buyInput" name="phone_number" type="text" value="{{ old('phone_number') }}"
@@ -52,8 +52,8 @@
                     </div>
                     <div class="col-md-6 col-sm-6 mb-4">
                         <fieldset>
-                            <input class="buyInput" name="email" type="email" id="email"
-                                value="{{ old('email') }}" placeholder="Email">
+                            <input class="buyInput" name="email" type="email" id="email" value="{{ old('email') }}"
+                                placeholder="Email">
                         </fieldset>
                         @error('email')
                             <div class="p-2 mb-4 bg-danger text-white">{{ $message }}</div>
@@ -106,8 +106,10 @@
                 </div>
                 <div class="main-button" style="display:flex; justify-content:center;">
 
-                    <input type="submit" name="submit" id="submit" style="width: fit-content; height:fit-content; background-color:#ed563b; color:#fff; padding: 6px 20px; border:2px#ff5334 solid;"   onclick="return confirm('Are you sure?')" >
-                  </div>
+                    <input type="submit" name="submit" id="submit"
+                        style="width: fit-content; height:fit-content; background-color:#ed563b; color:#fff; padding: 6px 20px; border:2px#ff5334 solid;"
+                        onclick="return confirm('Are you sure?')">
+                </div>
             </form>
 
 

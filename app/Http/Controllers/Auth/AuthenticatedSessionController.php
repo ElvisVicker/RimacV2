@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Cookie;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -30,11 +31,11 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         if (Auth::check() && Auth::user()->role === 1) {
-            return redirect()->route('admin.chart');
+            return redirect()->route('admin.permissions.index');
         }
 
         if (Auth::check() && Auth::user()->role === 0) {
-            return redirect()->route('staff.buyer.index');
+            return redirect()->route('client.home');
         }
 
         return redirect()->intended(RouteServiceProvider::HOME);
@@ -50,6 +51,8 @@ class AuthenticatedSessionController extends Controller
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
+
+        Cookie::queue(Cookie::forget('allCarId'));
 
         return redirect('/client/home');
     }

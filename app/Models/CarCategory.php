@@ -9,5 +9,5 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class CarCategory extends Model
 {
     use HasFactory, SoftDeletes;
-    protected $table = 'car_categories';
+    protected $table = 'categories';
 }

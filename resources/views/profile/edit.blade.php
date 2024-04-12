@@ -16,7 +16,7 @@
 
 <x-app-layout>
     <x-slot name="header">
-        <a href="{{ auth()->user()->role === 1 ? route('admin.chart') : route('staff.buyer.index') }}"
+        <a href="{{ auth()->user()->role === 1 ? route('admin.brand.index') : route('admin.brand.index') }}"
             class="navbar-brand d-flex d-lg-none me-4">
             <img src="{{ asset('images/logo.png') }}" height="50px" class="logoFilter" alt="" srcset="">
         </a>

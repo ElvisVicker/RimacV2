@@ -22,10 +22,17 @@
                     <i class="fa fa-angle-left arrow"></i>
                 </a>
             </li> --}}
+            {{-- <a href="http://127.0.0.1:8000/employees" style="display:flex; gap:8px;">Employee</a>
+            <a href="http://127.0.0.1:8000/permissions" style="display:flex; gap:8px;">Permission</a>
+            <a href="http://127.0.0.1:8000/brand" style="display:flex; gap:8px;">Brand</a>
+            <a href="http://127.0.0.1:8000/car_category" style="display:flex; gap:8px;">Category</a>
+            <a href="http://127.0.0.1:8000/car" style="display:flex; gap:8px;">Car</a>
+            <a href="http://127.0.0.1:8000/import_order" style="display:flex; gap:8px;">Import</a>
+            <a href="http://127.0.0.1:8000/export_order" style="display:flex; gap:8px;">Export</a>
+ --}}
 
 
-
-            <li>
+            {{-- <li>
                 <a href="{{ route('admin.chart') }}" style="display:flex; gap:8px;">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-6 h-6" style="width: 20px; height: 20px;">
@@ -34,22 +41,93 @@
                     </svg>
                     <span class="nav-label">Dashboard</span><i class="fa fa-angle-left arrow"></i>
                 </a>
-            </li>
+            </li> --}}
 
             <li>
-                <a href="{{ route('admin.account.index') }}" style="display:flex; gap:8px;">
+                <a href="{{ route('admin.employees.index') }}" style="display:flex; gap:8px;">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-6 h-6" style="width: 20px; height: 20px;">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
                     </svg>
-                    <span class="nav-label">Account</span><i class="fa fa-angle-left arrow"></i>
+                    <span class="nav-label">Employees</span><i class="fa fa-angle-left arrow"></i>
                 </a>
+            </li>
 
+
+
+
+
+
+
+            <li>
+                <a href="{{ route('admin.brand.index') }}" style="display:flex; gap:8px;">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-6 h-6" style="width: 20px; height: 20px;">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                    </svg>
+                    <span class="nav-label">Brands</span><i class="fa fa-angle-left arrow"></i>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ route('admin.export_order.index') }}" style="display:flex; gap:8px;">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-6 h-6" style="width: 20px; height: 20px;">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                    </svg>
+                    <span class="nav-label">Export Orders</span><i class="fa fa-angle-left arrow"></i>
+                </a>
             </li>
 
 
             <li>
+                <a href="{{ route('admin.import_order.index') }}" style="display:flex; gap:8px;">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-6 h-6" style="width: 20px; height: 20px;">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                    </svg>
+                    <span class="nav-label">Import Orders</span><i class="fa fa-angle-left arrow"></i>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ route('admin.car_category.index') }}" style="display:flex; gap:8px;">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-6 h-6" style="width: 20px; height: 20px;">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                    </svg>
+                    <span class="nav-label">Categories</span><i class="fa fa-angle-left arrow"></i>
+                </a>
+            </li>
+
+
+            <li>
+                <a href="{{ route('admin.permissions.index') }}" style="display:flex; gap:8px;">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-6 h-6" style="width: 20px; height: 20px;">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                    </svg>
+                    <span class="nav-label">Permissions</span><i class="fa fa-angle-left arrow"></i>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('admin.car.index') }}" style="display:flex; gap:8px;">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-6 h-6" style="width: 20px; height: 20px;">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                    </svg>
+                    <span class="nav-label">Cars</span><i class="fa fa-angle-left arrow"></i>
+                </a>
+            </li>
+
+            {{-- <li>
                 <a href="{{ route('admin.brand.index') }}" style="display:flex; gap:8px;">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-6 h-6" style="width: 20px; height: 20px;">
@@ -122,7 +200,7 @@
 
 
 
-            {{-- <li>
+            <li>
                 <a href="{{ route('admin.car_images.index') }}" style="display:flex; gap:8px;">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-6 h-6" style="width: 20px; height: 20px;">
@@ -133,7 +211,7 @@
                         Images</span><i class="fa fa-angle-left arrow"></i>
                 </a>
 
-            </li> --}}
+            </li>
 
 
 
@@ -147,7 +225,7 @@
                     <span class="nav-label">Contact</span><i class="fa fa-angle-left arrow"></i>
                 </a>
 
-            </li>
+            </li> --}}
 
 
 

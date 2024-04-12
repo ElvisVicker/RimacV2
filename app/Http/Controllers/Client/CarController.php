@@ -11,14 +11,14 @@ class CarController extends Controller
 {
     public function index(Request $request)
     {
-        $carCategories = DB::table('car_categories')->get();
+        $carCategories = DB::table('categories')->get();
         $brands = DB::table('brands')->get();
         $colors = DB::table('cars')->distinct()->get('color');
         $fueltypies = DB::table('cars')->distinct()->get('fueltype');
         $years = DB::table('cars')->distinct()->get('year');
         $cars = DB::table('cars')->where('cars.status', '=', 1)
-            ->select('cars.*', 'car_categories.name as car_category_name', 'car_categories.rent_price as car_category_rent_price', 'brands.name as brand_name', 'brands.image as brand_image')
-            ->join('car_categories', 'cars.car_category_id', '=', 'car_categories.id')
+            ->select('cars.*', 'categories.name as car_category_name', 'brands.name as brand_name', 'brands.image as brand_image')
+            ->join('categories', 'cars.car_category_id', '=', 'categories.id')
             ->join('brands', 'cars.brand_id', '=', 'brands.id')
 
             ->when(!$request->color == null, function ($query) use ($request) {
@@ -53,17 +53,17 @@ class CarController extends Controller
 
             ->when(!$request->price == null, function ($query) use ($request) {
                 if ($request->price == '1') {
-                    $query->where('price', '>', 0)->where('price', '<=', 43478);
+                    $query->where('export_price', '>', 0)->where('export_price', '<=', 49999);
                 } else if ($request->price == '2') {
-                    $query->where('price', '>', 43478)->where('price', '<=', 86956);
+                    $query->where('export_price', '>', 49999)->where('export_price', '<=', 99999);
                 } else {
-                    $query->where('price', '>', 86956);
+                    $query->where('export_price', '>', 99999);
                 }
             }, function ($query) {
-                $query->where('price', '<>', null);
+                $query->where('export_price', '<>', null);
             })
             ->orderBy('created_at', 'desc')
-            ->paginate(6);
+            ->paginate(18);
 
         session(['category' => $request->category]);
         session(['color' => $request->color]);
@@ -87,8 +87,8 @@ class CarController extends Controller
     public function detail(string $id, string $slug)
     {
         $car = DB::table('cars')
-            ->select('cars.*', 'car_categories.name as car_category_name', 'car_categories.rent_price as car_category_rent_price', 'brands.name as brand_name', 'brands.image as brand_image')
-            ->join('car_categories', 'cars.car_category_id', '=', 'car_categories.id')
+            ->select('cars.*', 'categories.name as car_category_name', 'brands.name as brand_name', 'brands.image as brand_image')
+            ->join('categories', 'cars.car_category_id', '=', 'categories.id')
             ->join('brands', 'cars.brand_id', '=', 'brands.id')
 
             ->where('cars.id', $id)->where('cars.slug', $slug)

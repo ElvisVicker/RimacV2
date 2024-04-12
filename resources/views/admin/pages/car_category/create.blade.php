@@ -29,15 +29,22 @@
                                 @enderror
                             </div>
 
-                            <div class="form-group col-md-6">
+                            {{-- <div class="form-group col-md-6">
                                 <label for="formFile" class="form-label" style="font-weight:bold;">Description</label>
                                 <textarea class="form-control" type="text" name="description" id="description" rows="10"> </textarea>
                                 @error('description')
                                     <div class="p-2 mb-4 bg-danger text-white">{{ $message }}</div>
                                 @enderror
-                            </div>
+                            </div> --}}
                         </div>
                         <input class="btn btn-primary" type="submit" value="Submit" style="cursor: pointer;">
+                        <a class="btn btn-success" style="cursor: pointer;"
+                            href="{{ route('admin.car_category.index') }}">Back to
+                            list</a>
+
+
+
+
                     </form>
                 </div>
             </div>

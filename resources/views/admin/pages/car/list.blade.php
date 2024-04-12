@@ -27,8 +27,9 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Name</th>
-                                    <th scope="col">Price</th>
-                                    <th scope="col">Color</th>
+                                    <th scope="col">Import Price</th>
+                                    <th scope="col">Export Price</th>
+                                    <th scope="col">Quantity</th>
                                     <th scope="col">Category</th>
                                     <th scope="col">Image</th>
                                     <th scope="col">Status</th>
@@ -40,8 +41,9 @@
                                     <tr>
                                         <td>{{ $loop->iteration }} </td>
                                         <td>{{ $car->name }}</td>
-                                        <td>{{ $car->price }}</td>
-                                        <td>{{ $car->color }}</td>
+                                        <td>{{ $car->import_price }}</td>
+                                        <td>{{ $car->export_price }}</td>
+                                        <td>{{ $car->quantity }}</td>
 
                                         <td>{{ $car->car_category_name }}</td>
 
@@ -49,7 +51,10 @@
                                             @php
                                                 $firstCarImage = explode(',', $car->image)[0];
 
-                                                $imagesLink = $firstCarImage == '' || !file_exists('images/' . $firstCarImage) ? 'https://phutungnhapkhauchinhhang.com/wp-content/uploads/2020/06/default-thumbnail.jpg' : asset('images/' . $firstCarImage);
+                                                $imagesLink =
+                                                    $firstCarImage == '' || !file_exists('images/' . $firstCarImage)
+                                                        ? 'https://phutungnhapkhauchinhhang.com/wp-content/uploads/2020/06/default-thumbnail.jpg'
+                                                        : asset('images/' . $firstCarImage);
                                             @endphp
                                             <img rounded-circle flex-shrink-0 src="{{ $imagesLink }}" alt=""
                                                 srcset="" style="width: 130px; height: 70px; object-fit:cover;">
@@ -114,7 +119,7 @@
 @endsection
 
 
-@section('content')
+{{-- @section('content')
     <div class="container-fluid pt-4 px-4">
         <div class="row g-6">
             <div class="col-sm-12 col-xl-12">
@@ -136,8 +141,8 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Name</th>
-                                <th scope="col">Price</th>
-
+                                <th scope="col">Import Price</th>
+                                <th scope="col">Export Price</th>
                                 <th scope="col">Color</th>
                                 <th scope="col">Category</th>
                                 <th scope="col">Image</th>
@@ -154,22 +159,23 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $car->name }}</td>
-                                    <td>{{ $car->price }}</td>
-
+                                    <td>{{ $car->import_price }}</td>
+                                    <td>{{ $car->export_price }}</td>
                                     <td>{{ $car->color }}</td>
                                     <td>{{ $car->car_category_name }}</td>
                                     <td>
                                         @php
                                             $firstCarImage = explode(',', $car->image)[0];
-                                            $imagesLink = is_null($firstCarImage) || !file_exists('images/' . $firstCarImage) ? 'https://phutungnhapkhauchinhhang.com/wp-content/uploads/2020/06/default-thumbnail.jpg' : asset('images/' . $firstCarImage);
+                                            $imagesLink =
+                                                is_null($firstCarImage) || !file_exists('images/' . $firstCarImage)
+                                                    ? 'https://phutungnhapkhauchinhhang.com/wp-content/uploads/2020/06/default-thumbnail.jpg'
+                                                    : asset('images/' . $firstCarImage);
                                         @endphp
                                         <img rounded-circle flex-shrink-0 src="{{ $imagesLink }}" alt=""
                                             srcset="" style="width: auto; height: 50px; object-fit:cover;">
                                     </td>
 
                                     <td>
-                                        {{-- {{ $car->status }} --}}
-
 
                                         <div
                                             class="{{ $car->status ? 'btn btn-success m-2 Show' : 'btn btn-danger m-2 Hide' }}">
@@ -208,24 +214,6 @@
                                             <a href="{{ route('admin.car.restore', ['car' => $car->id]) }}"
                                                 class="btn btn-success m-2">Restore</a>
                                         @endif
-
-                                        {{-- <form action="{{ route('admin.car.destroy', ['car' => $car->id]) }}"
-                                            method="post">
-                                            @csrf
-                                            @method('delete')
-                                            <button class="btn btn-danger m-2" type="submit" name="delete"
-                                                onclick="return confirm('Are you sure?')">
-                                                Delete
-                                            </button>
-                                        </form> --}}
-
-
-
-
-
-
-
-
                                     </td>
                                 </tr>
                             @empty
@@ -250,4 +238,4 @@
 
 
     </div>
-@endsection
+@endsection --}}

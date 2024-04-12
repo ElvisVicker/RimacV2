@@ -5,12 +5,12 @@
         }
     </style>
     <div class="page-brand">
-        <a class="link" href="{{ route('admin.chart') }}">
+        {{-- <a class="link" href="{{ route('admin.chart') }}">
             <span class="brand"> <img src="{{ asset('images/logo.png') }}" height="50px" class="logoFilter" alt=""
                     srcset="">
             </span>
             <span class="brand-mini">RM</span>
-        </a>
+        </a> --}}
     </div>
     <div class="flexbox flex-1">
         <!-- START TOP-LEFT TOOLBAR-->

@@ -17,16 +17,17 @@ return new class extends Migration
             $table->string('middle_name')->nullable();
             $table->string('last_name');
             $table->boolean('gender');
-            $table->boolean('role');
             $table->string('phone_number');
             $table->string('address')->nullable();
             $table->boolean('status')->default(1);
             $table->string('image')->nullable();
+            $table->boolean('role');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

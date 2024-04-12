@@ -51,6 +51,8 @@
                         </li>
                         <li><a href="{{ route('client.contact') }}">Contact</a></li>
 
+
+
                         {{-- @if (auth()->check() && auth()->user()->role === 1)
                             <li><a href="{{ route('admin.chart') }}">Login</a></li>
                         @elseif (auth()->check() && auth()->user()->role === 0)
@@ -77,6 +79,75 @@
                                 @endphp
                             </div>
                         </li>
+
+                        <li
+                            style="display: flex;
+                        font-weight: 500;
+                        font-size: 13px;
+                        color: #fff;
+                        text-transform: uppercase;
+                        padding: 0 0;
+                        height: 40px;
+                        line-height: 40px;
+                        border: transparent;
+
+                                            ">
+                            |</li>
+
+                        <li><a href="{{ route('client.library.index') }}">Library</a></li>
+                        @if (auth()->check() && auth()->user()->role === 0)
+                            <li>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+
+
+                                    <a href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                this.closest('form').submit();">Logout</a>
+                                </form>
+                            </li>
+                        @else
+                            <li><a href="{{ route('register') }}">Register</a></li>
+                            <li><a href="{{ route('login') }}">Login</a></li>
+                        @endif
+
+                        {{-- <li><a href="{{ route('register') }}">Register</a></li>
+                        <li><a href="{{ route('login') }}">Login</a></li> --}}
+
+                        {{-- <li>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <a href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                this.closest('form').submit();">Logout</a>
+                            </form>
+                        </li> --}}
+
+
+
+
+
+
+
+                        @if (auth()->check() && auth()->user()->role === 0)
+                            {{-- {{ dd(auth()->user()->name) }} --}}
+                            <li
+                                style="display: flex;
+                                font-weight: 500;
+                                font-size: 13px;
+                                color: #fff;
+                                text-transform: uppercase;
+                                transition: all 0.3s ease 0s;
+                                height: 40px;
+                                line-height: 40px;
+                                border: transparent;
+                                letter-spacing: 1px;
+                                background-color: #ed563b;
+                                clip-path: polygon(90% 0, 100% 50%, 90% 100%, 0% 100%, 0 50%, 0% 0%);   ">
+
+                                Wellcome {{ auth()->user()->name }} </li>
+                        @endif
+
 
 
                     </ul>

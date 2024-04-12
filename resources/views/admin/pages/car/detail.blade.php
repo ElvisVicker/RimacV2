@@ -42,6 +42,16 @@
                             </div>
 
                             <div class="form-group col-md-4">
+                                <label style="font-weight:bold;">Quantity</label>
+                                <input type="text" class="form-control" id="quantity" name="quantity" readonly
+                                    value="{{ $car->quantity }}" placeholder="Quantity">
+                                @error('quantity')
+                                    <div class="p-2 mb-4 bg-danger text-white">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+
+                            <div class="form-group col-md-4">
                                 <label style="font-weight:bold;">Brand</label>
                                 <select class="form-control" name="brand_id">
                                     <option value="">--Brand--</option>
@@ -85,10 +95,18 @@
 
 
                             <div class="form-group col-md-4">
-                                <label style="font-weight:bold;">*Price</label>
-                                <input type="text" class="form-control" id="price" name="price"
-                                    value="{{ $car->price }}" placeholder="Price">
-                                @error('price')
+                                <label style="font-weight:bold;">*Import Price</label>
+                                <input type="text" class="form-control" id="import_price" name="import_price"
+                                    value="{{ $car->import_price }}" placeholder="Import Price">
+                                @error('import_price')
+                                    <div class="p-2 mb-4 bg-danger text-white">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label style="font-weight:bold;">*Export Price</label>
+                                <input type="text" class="form-control" id="export_price" name="export_price"
+                                    value="{{ $car->export_price }}" placeholder="Export Price">
+                                @error('export_price')
                                     <div class="p-2 mb-4 bg-danger text-white">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -350,6 +368,10 @@
 
 
                         <input class="btn btn-primary" type="submit" value="Submit" style="cursor: pointer;">
+                        <a class="btn btn-success" style="cursor: pointer;" href="{{ route('admin.car.index') }}">Back
+                            to
+                            list</a>
+
                     </form>
                 </div>
             </div>
