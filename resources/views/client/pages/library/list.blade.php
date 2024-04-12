@@ -269,6 +269,7 @@
                                 <th scope="col">ID</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Order's Date</th>
+                                <th scope="col">Prepay</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
@@ -307,11 +308,11 @@ if ($export_order->status == 0) {
                                                 }
                                             @endphp
                                         </div>
-
                                     </td>
 
                                     <td>{{ date('d/m/Y - H:i', strtotime($export_order->created_at)) }}</td>
                                     {{-- <td>{{ $export_order->created_at }}</td> --}}
+                                    <td>{{ number_format($export_order->prepay, 2) }} $</td>
                                     <td>
                                         <a class="btn " style="cursor: pointer; background-color:#2c92ff; color:#fff;"
                                             href="{{ route('client.library.show', ['library' => $export_order->id]) }}">Detail</a>

@@ -94,8 +94,9 @@
                                             ">
                             |</li>
 
-                        <li><a href="{{ route('client.library.index') }}">Library</a></li>
+
                         @if (auth()->check() && auth()->user()->role === 0)
+                            <li><a href="{{ route('client.library.index') }}">Library</a></li>
                             <li>
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
