@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreign('customer_id')->references('user_id')->on('customers');
             $table->unsignedBigInteger('order_id');
             $table->foreign('order_id')->references('id')->on('orders');
+            $table->double('prepay', 15, 2);
             $table->boolean('status')->default(1);
             $table->softDeletes();
             $table->timestamps();

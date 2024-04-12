@@ -2,11 +2,11 @@
     <div id="sidebar-collapse">
         <div class="admin-block d-flex">
             <div>
-                <img src="{{ asset('images/' . auth()->user()->image) }}"
-                    style="width: 40px; height: 40px; object-fit:cover; border-radius:100px;" />
+                {{-- <img src="{{ asset('images/' . auth()->user()->image) }}"
+                    style="width: 40px; height: 40px; object-fit:cover; border-radius:100px;" /> --}}
             </div>
             <div class="admin-info">
-                <div class="font-strong"> {{ auth()->user()->name }} {{ auth()->user()->last_name }}</div>
+                {{-- <div class="font-strong"> {{ auth()->user()->name }} {{ auth()->user()->last_name }}</div> --}}
                 <small>Administrator</small>
             </div>
         </div>

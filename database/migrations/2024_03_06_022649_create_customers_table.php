@@ -15,7 +15,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->boolean('status')->default(1);
-            $table->string('purchase_history');
+
             $table->softDeletes();
             $table->timestamps();
         });

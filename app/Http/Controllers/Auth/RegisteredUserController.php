@@ -76,7 +76,7 @@ class RegisteredUserController extends Controller
 
         DB::table('customers')->insert([
             "user_id" =>  $getNextIdUser[0]->Auto_increment,
-            "purchase_history" => "",
+
             "created_at" => Carbon::now(),
             "updated_at" => Carbon::now(),
             "status" => 1,

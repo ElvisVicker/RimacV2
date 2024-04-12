@@ -283,8 +283,30 @@
 
 
                                     <td>
-                                        <div class="{{ $export_order->status ? 'btn btn-success' : 'btn btn-danger ' }}">
-                                            {{ $export_order->status ? 'Done' : 'Pending' }}</div>
+                                        {{-- <div class="{{ $export_order->status ? 'btn btn-success' : 'btn btn-danger ' }}"> --}}
+
+                                        <div
+                                            class=" @php
+if ($export_order->status == 0) {
+                                                echo 'btn btn-danger';
+                                            } elseif ($export_order->status == 1) {
+                                                echo 'btn btn-success';
+                                            } else {
+                                                echo 'btn btn-warning';
+                                            } @endphp">
+
+
+                                            @php
+
+                                                if ($export_order->status == 0) {
+                                                    echo 'Pending';
+                                                } elseif ($export_order->status == 1) {
+                                                    echo 'Done';
+                                                } else {
+                                                    echo 'Reserved';
+                                                }
+                                            @endphp
+                                        </div>
 
                                     </td>
 

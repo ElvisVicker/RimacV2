@@ -158,7 +158,7 @@
                 @csrf
                 @method('post')
 
-                <div class="checkForm col-md-6 col-sm-6" style="display:flex; flex-direction:rows; gap:20px;">
+                {{-- <div class="checkForm col-md-6 col-sm-6" style="display:flex; flex-direction:rows; gap:20px;">
                     <div style="margin-bottom:8px; font-weight:bold;">Payment Method:</div>
                     <div class="">
                         <input class="" type="radio" name="payment" id="payment" value="1" checked
@@ -173,7 +173,9 @@
                     @error('payment')
                         <div class="p-2 mb-4 bg-danger text-white">{{ $message }}</div>
                     @enderror
-                </div>
+                </div> --}}
+
+
                 <input type="hidden" name="allQty" class="allQty">
 
                 @if (auth()->check() && auth()->user()->role === 0)
@@ -191,8 +193,8 @@
                         </div>
                     @endif
                 @else
-                    <div onclick="return alert('You must login to continue')"
-                        href="{{ route('login') }}"class="main-button" style="display:flex; justify-content:end;">
+                    <div onclick="return alert('You must login to continue')" href="{{ route('login') }}"class="main-button"
+                        style="display:flex; justify-content:end;">
                         <a href="{{ route('login') }}">Check Out</a>
                     </div>
                 @endif
@@ -204,9 +206,12 @@
                 const cart_tr = cart_tb.children;
                 const totalPriceLabel = document.querySelector('.totalPrice');
                 let qty;
-                let total = 0;
+                let totalPriceInCart = 0;
                 let totalPrice = [];
                 let totalQty = [];
+                let totalQtyInCart = cart_tr.length - 1;
+
+
 
                 for (let i = 0; i < cart_tr.length - 1; i++) {
                     let td = cart_tr[i].getElementsByTagName('td');
@@ -223,10 +228,12 @@
                     sessionStorage.setItem('totalQty', totalQty);
 
                     btnPlus.addEventListener('click', (e) => {
+
                         btnQty.value = parseInt(btnQty.value) + 1;
                         totalPricePerCar[0] = parseInt(btnQty.value)
                         totalPricePerCar[1] = formattedAmount
                         updateQuantityText();
+
                     });
 
                     btnMinus.addEventListener('click', (e) => {
@@ -247,10 +254,12 @@
                     function updateQuantityText() {
                         totalPrice[i] = totalPricePerCar[0] * totalPricePerCar[1]
                         totalQty[i] = totalPricePerCar[0]
+                        totalQtyInCart = Number(totalQty.reduce((acc, val) => acc + val, 0));
                         sessionStorage.setItem('totalQty', totalQty);
-                        total = Number(totalPrice.reduce((acc, val) => acc + val, 0));
-                        totalPriceLabel.innerText = `${total.toLocaleString('en-US', {minimumFractionDigits: 2})} $`;
+                        totalPriceInCart = Number(totalPrice.reduce((acc, val) => acc + val, 0));
+                        totalPriceLabel.innerText = `${totalPriceInCart.toLocaleString('en-US', {minimumFractionDigits: 2})} $`;
                     }
+
                 }
 
                 const allQty = document.querySelector('.allQty')
