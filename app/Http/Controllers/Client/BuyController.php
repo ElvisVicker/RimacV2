@@ -274,7 +274,7 @@ class BuyController extends Controller
 
         return redirect()->route('client.home')->with('message', $message);
     }
-
+}
     // DB::table('orders')->insert([
     //     "id" => $getNextIdOrder[0]->Auto_increment,
     //     // "employee_id" => 1,
@@ -471,6 +471,3 @@ class BuyController extends Controller
     //     // Cookie::queue(Cookie::forget('allCarId'));
     //     return Redirect::to($vnp_Url);
     // }
-
-
-}
