@@ -132,6 +132,11 @@ Route::prefix('client')->name('client.')->group(function () {
     Route::get('home', [HomeController::class, 'index'])->name('home');
     Route::get('cars', [ClientCarController::class, 'index'])->name('cars');
     Route::post('cars', [ClientCarController::class, 'index'])->name('cars');
+    Route::get('fetch_data_pagination', [ClientCarController::class, 'fetch_data_pagination'])->name('fetch_data_pagination');
+
+    Route::get('fetch_data_search', [ClientCarController::class, 'fetch_data_search'])->name('fetch_data_search');
+
+
     Route::get('detail/{id?}/{slug}', [ClientCarController::class, 'detail'])->name('detail');
     Route::post('detail/store', [BuyController::class, 'store'])->name('detail.store');
 

@@ -5,6 +5,8 @@
 
 
 
+
+
     <section class="section section-bg" id="call-to-action"
         style="background-image: url({{ asset('assets/client/images/banner-image-1-1920x500.jpg') }})">
         <div class="container">
@@ -32,7 +34,7 @@
         }
 
         .subInfo {
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 500;
             margin-bottom: 10px;
         }
@@ -96,7 +98,7 @@
             <br>
 
             <div class="row">
-                <div class="contact-form col-lg-3 col-md-4 col-sm-4">
+                {{-- <div class="contact-form col-lg-3 col-md-4 col-sm-4">
                     <form action=" {{ route('client.cars') }}" id="contact" method="post">
                         @csrf
                         @method('post')
@@ -106,7 +108,7 @@
                                     <label>Category</label>
                                     <select name="category">
                                         <option value="">--All--</option>
-                                        {{-- {{ session()->get('category') ? 'selected' : '' }} --}}
+
 
                                         @foreach ($carCategories as $carCategory)
                                             <option value="{{ $carCategory->id }}"
@@ -117,15 +119,6 @@
                                     </select>
                                 </div>
                             </div>
-
-                            {{-- @php
-                            if (session()->get('brand') == $brands) {
-                                echo '<div>test</div>';
-                            } else {
-                                echo '<div>test1</div>';
-                            }
-                        @endphp --}}
-
 
                             <div class="col-lg-12">
                                 <div class="form-group">
@@ -205,13 +198,11 @@
                         <br>
                         <br>
                     </form>
-                </div>
-                {{-- {{ dd(session()->get('brand')) }} --}}
+                </div> --}}
 
 
 
-
-                <div class="row col-lg-9 col-md-8 col-sm-8">
+                {{-- <div class="row col-lg-9 col-md-8 col-sm-8">
                     @foreach ($cars as $car)
                         <div class="col-lg-6 col-md-12 col-sm-12">
                             <div class="trainer-item">
@@ -224,7 +215,7 @@
                                                 : asset('images/' . $firstCarImage);
                                     @endphp
                                     <img src="{{ $imagesLink }}" alt="" class="imgCus" srcset="">
-                                    {{-- <img src="assets/images/product-1-720x480.jpg" alt=""> --}}
+
                                 </div>
                                 <div class="down-content infoCustom">
 
@@ -243,72 +234,24 @@
                                         <div>Engine size: {{ $car->engine_size }}L</div>
                                         <div>Transmission: {{ $car->transmission_type }}</div>
                                     </div>
-
-
-
-
-
                                     <a class="btnViewCar"
                                         href="{{ route('client.detail', ['id' => $car->id, 'slug' => $car->slug]) }}">
                                         Buy Now
                                     </a>
-
-
-
-
-
-
                                 </div>
                             </div>
                         </div>
                     @endforeach
 
-                </div>
+                </div> --}}
 
-                {{-- @foreach ($cars as $car)
-                    <div class="col-lg-4">
-                        <div class="trainer-item">
-                            <div class="image-thumb">
-                                @php
-                                    $firstCarImage = explode(',', $car->car_image)[0];
-                                    $imagesLink = is_null($firstCarImage) || !file_exists('images/' . $firstCarImage) ? 'https://phutungnhapkhauchinhhang.com/wp-content/uploads/2020/06/default-thumbnail.jpg' : asset('images/' . $firstCarImage);
-                                @endphp
-                                <img src="{{ $imagesLink }}" alt="" srcset="">
-                            </div>
-                            <div class="down-content">
-                                <span>
-                                    <sup>$</sup> {{ $car->price + (15 / 100) * $car->price }}
-                                </span>
+                {{-- <div id="table_data"></div> --}}
 
-                                <h4>{{ $car->name }}</h4>
-                                <div class="mb-1">{{ $car->car_category_name }}</div>
-                                <p>
-                                    <i class="fa fa-dashboard"></i>{{ $car->color }} &nbsp;&nbsp;&nbsp;
-                                    <i class="fa fa-cube"></i>{{ $car->engine_size }} &nbsp;&nbsp;&nbsp;
-                                    <i class="fa fa-cog"></i> {{ $car->transmission_type }} &nbsp;&nbsp;&nbsp;
-                                </p>
-
-                                <ul class="social-icons">
-                                    <li><a href="{{ route('client.detail', ['id' => $car->id, 'slug' => $car->slug]) }}">+
-                                            View Car</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach --}}
-
-
-
-
-
-
-
-
-
-
+                @include('client.pages.cars.pagination')
+                {{-- @include('client.pages.cars.search') --}}
             </div>
             <br>
+
             <nav>
 
                 <style>
@@ -324,7 +267,90 @@
                     }
                 </style>
 
-                {{ $cars->links('pagination::bootstrap-5') }}
+
+                {!! $cars->links() !!}
+
+                <input id="searchInput" value="{{ old('input') }}" type="text">
+
+
+
+                {{-- <div class="contact-form col-lg-3 col-md-4 col-sm-4">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label>Category</label>
+                                <select name="category">
+                                    <option value="">--All--</option>
+
+
+                                    @foreach ($carCategories as $carCategory)
+                                        <option value="{{ $carCategory->id }}"
+                                            {{ session()->get('category') == $carCategory->id ? 'selected' : '' }}>
+                                            {{ $carCategory->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label>Brands</label>
+
+                                <select name="brand">
+                                    <option value="">--All--</option>
+                                    @foreach ($brands as $brand)
+                                        <option value="{{ $brand->id }}"
+                                            {{ session()->get('brand') == $brand->id ? 'selected' : '' }}>
+                                            {{ $brand->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label>Color</label>
+
+                                <select name="color">
+                                    <option value="">--All--</option>
+                                    @foreach ($colors as $color)
+                                        <option value="{{ $color->color }}"
+                                            {{ session()->get('color') == $color->color ? 'selected' : '' }}>
+                                            {{ $color->color }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label>Fuel Type</label>
+
+                                <select name="fueltype">
+                                    <option value="">--All--</option>
+                                    @foreach ($fueltypies as $fueltype)
+                                        <option value="{{ $fueltype->fueltype }}"
+                                            {{ session()->get('fueltype') == $fueltype->fueltype ? 'selected' : '' }}>
+                                            {{ $fueltype->fueltype }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label>Year</label>
+
+                                <select name="year">
+                                    <option value="">--All--</option>
+                                    @foreach ($years as $year)
+                                        <option value="{{ $year->year }}"
+                                            {{ session()->get('year') == $year->year ? 'selected' : '' }}>
+                                            {{ $year->year }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div> --}}
 
 
                 {{-- <ul class="pagination pagination-lg justify-content-center">
@@ -348,5 +374,59 @@
 
         </div>
     </section>
+
+
+    {{-- <script src="{{ asset('assets/client/js/jquery-2.1.0.min.js') }}"></script>
+    <script src="{{ asset('assets/client/js/popper.js') }}"></script>
+    <script src="{{ asset('assets/client/js/bootstrap.min.js') }}"></script>
+  --}}
+
+
     <!-- ***** Fleet Ends ***** -->
+@endsection
+@section('js-custom')
+    <script>
+        $(document).ready(function() {
+            $(document).on('click', '.pagination a', function(event) {
+                event.preventDefault();
+                let page = $(this).attr('href').split('page=')[1];
+                fetch_data_pagination(page);
+            });
+
+            function fetch_data_pagination(page) {
+                $.ajax({
+                    type: "GET",
+                    url: "/client/fetch_data_pagination?page=" + page,
+                    success: function(data) {
+                        $('body').html(data);
+                    }
+                });
+            }
+        });
+
+        $(document).ready(function() {
+            $(document).on('keyup', '#searchInput', function(event) {
+                event.preventDefault();
+                let input = $('#searchInput').val();
+                setTimeout(function() {
+                    fetch_data_search(input);
+                }, 600);
+            });
+
+            function fetch_data_search(input) {
+
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('client.fetch_data_search') }}",
+                    data: {
+                        input: input
+                    },
+                    success: function(data) {
+                        $('body').html(data);
+                    }
+                });
+
+            }
+        });
+    </script>
 @endsection
