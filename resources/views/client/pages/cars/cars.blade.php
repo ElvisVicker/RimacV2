@@ -200,8 +200,6 @@
                     </form>
                 </div> --}}
 
-
-
                 {{-- <div class="row col-lg-9 col-md-8 col-sm-8">
                     @foreach ($cars as $car)
                         <div class="col-lg-6 col-md-12 col-sm-12">
@@ -245,10 +243,102 @@
 
                 </div> --}}
 
-                {{-- <div id="table_data"></div> --}}
 
-                @include('client.pages.cars.pagination')
-                {{-- @include('client.pages.cars.search') --}}
+                <div class="contact-form col-lg-3 col-md-4 col-sm-4">
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <input id="searchInput" value="{{ old('input') }}" type="text" placeholder="Search Here">
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Category</label>
+                                <select name="category" id = "filterCarCategory">
+                                    <option value="">--All--</option>
+                                    @foreach ($carCategories as $carCategory)
+                                        <option value="{{ $carCategory->id }}"
+                                            {{ session()->get('category') == $carCategory->id ? 'selected' : '' }}>
+                                            {{ $carCategory->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Brands</label>
+                                <select name="brand" id = "filterBrand">
+                                    <option value="">--All--</option>
+                                    @foreach ($brands as $brand)
+                                        <option value="{{ $brand->id }}"
+                                            {{ session()->get('brand') == $brand->id ? 'selected' : '' }}>
+                                            {{ $brand->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Color</label>
+
+                                <select name="color" id = "filterColor">
+                                    <option value="">--All--</option>
+                                    @foreach ($colors as $color)
+                                        <option value="{{ $color->color }}"
+                                            {{ session()->get('color') == $color->color ? 'selected' : '' }}>
+                                            {{ $color->color }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Fuel Type</label>
+
+                                <select name="fueltype" id = "filterFuelType">
+                                    <option value="">--All--</option>
+                                    @foreach ($fueltypies as $fueltype)
+                                        <option value="{{ $fueltype->fueltype }}"
+                                            {{ session()->get('fueltype') == $fueltype->fueltype ? 'selected' : '' }}>
+                                            {{ $fueltype->fueltype }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Year</label>
+
+                                <select name="year" id = "filterYear">
+                                    <option value="">--All--</option>
+                                    @foreach ($years as $year)
+                                        <option value="{{ $year->year }}"
+                                            {{ session()->get('year') == $year->year ? 'selected' : '' }}>
+                                            {{ $year->year }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Price</label>
+                                <select name="price" id = "filterPrice">
+                                    <option value="">--All--</option>
+                                    <option value="1">0-49.999</option>
+                                    <option value="2">50.000-99.999</option>
+                                    <option value="3"> > 100.000</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row col-lg-9 col-md-8 col-sm-8" id= 'listCars'>
+                    @include('client.pages.cars.pagination')
+                </div>
             </div>
             <br>
 
@@ -268,89 +358,9 @@
                 </style>
 
 
-                {!! $cars->links() !!}
-
-                <input id="searchInput" value="{{ old('input') }}" type="text">
 
 
-
-                {{-- <div class="contact-form col-lg-3 col-md-4 col-sm-4">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label>Category</label>
-                                <select name="category">
-                                    <option value="">--All--</option>
-
-
-                                    @foreach ($carCategories as $carCategory)
-                                        <option value="{{ $carCategory->id }}"
-                                            {{ session()->get('category') == $carCategory->id ? 'selected' : '' }}>
-                                            {{ $carCategory->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label>Brands</label>
-
-                                <select name="brand">
-                                    <option value="">--All--</option>
-                                    @foreach ($brands as $brand)
-                                        <option value="{{ $brand->id }}"
-                                            {{ session()->get('brand') == $brand->id ? 'selected' : '' }}>
-                                            {{ $brand->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label>Color</label>
-
-                                <select name="color">
-                                    <option value="">--All--</option>
-                                    @foreach ($colors as $color)
-                                        <option value="{{ $color->color }}"
-                                            {{ session()->get('color') == $color->color ? 'selected' : '' }}>
-                                            {{ $color->color }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label>Fuel Type</label>
-
-                                <select name="fueltype">
-                                    <option value="">--All--</option>
-                                    @foreach ($fueltypies as $fueltype)
-                                        <option value="{{ $fueltype->fueltype }}"
-                                            {{ session()->get('fueltype') == $fueltype->fueltype ? 'selected' : '' }}>
-                                            {{ $fueltype->fueltype }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label>Year</label>
-
-                                <select name="year">
-                                    <option value="">--All--</option>
-                                    @foreach ($years as $year)
-                                        <option value="{{ $year->year }}"
-                                            {{ session()->get('year') == $year->year ? 'selected' : '' }}>
-                                            {{ $year->year }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div> --}}
+                {{-- {{ dd($carCategories) }} --}}
 
 
                 {{-- <ul class="pagination pagination-lg justify-content-center">
@@ -390,6 +400,7 @@
             $(document).on('click', '.pagination a', function(event) {
                 event.preventDefault();
                 let page = $(this).attr('href').split('page=')[1];
+                console.log(page)
                 fetch_data_pagination(page);
             });
 
@@ -398,23 +409,31 @@
                     type: "GET",
                     url: "/client/fetch_data_pagination?page=" + page,
                     success: function(data) {
-                        $('body').html(data);
+                        $('#listCars').html(data);
                     }
                 });
             }
         });
 
+
+
+
+
+
         $(document).ready(function() {
             $(document).on('keyup', '#searchInput', function(event) {
                 event.preventDefault();
                 let input = $('#searchInput').val();
-                setTimeout(function() {
-                    fetch_data_search(input);
-                }, 600);
+                $('#filterCarCategory').val("");
+                $('#filterBrand').val("");
+                $('#filterColor').val("");
+                $('#filterFuelType').val("");
+                $('#filterYear').val("");
+                $('#filterPrice').val("");
+                fetch_data_search(input);
             });
 
             function fetch_data_search(input) {
-
                 $.ajax({
                     type: "GET",
                     url: "{{ route('client.fetch_data_search') }}",
@@ -422,11 +441,40 @@
                         input: input
                     },
                     success: function(data) {
-                        $('body').html(data);
+                        $('#listCars').html(data);
                     }
                 });
-
             }
+        });
+
+        $(document).ready(function() {
+            $(document).on('change',
+                '#filterCarCategory, #filterBrand, #filterColor, #filterFuelType, #filterYear, #filterPrice',
+                function(event) {
+                    event.preventDefault();
+                    let filterCarCategory = $('#filterCarCategory').val();
+                    let filterBrand = $('#filterBrand').val();
+                    let filterColor = $('#filterColor').val();
+                    let filterFuelType = $('#filterFuelType').val();
+                    let filterYear = $('#filterYear').val();
+                    let filterPrice = $('#filterPrice').val();
+                    $('#searchInput').val("");
+                    $.ajax({
+                        type: "GET",
+                        url: "{{ route('client.fetch_data_filter') }}",
+                        data: {
+                            filterCarCategory: filterCarCategory,
+                            filterBrand: filterBrand,
+                            filterColor: filterColor,
+                            filterFuelType: filterFuelType,
+                            filterYear: filterYear,
+                            filterPrice: filterPrice,
+                        },
+                        success: function(data) {
+                            $('#listCars').html(data);
+                        }
+                    });
+                });
         });
     </script>
 @endsection

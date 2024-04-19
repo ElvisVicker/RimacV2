@@ -1,6 +1,12 @@
 @extends('client.layout.master')
 
 @section('content')
+    @if (session('message'))
+        <div id="alert-message"
+            class="alert alert-{{ session('message') == 'Send Message Success' ? 'success' : 'success' }}">
+            {{ session('message') }}
+        </div>
+    @endif
     <section class="section section-bg" id="call-to-action"
         style="background-image: url( {{ asset('assets/client/images/banner-image-1-1920x500.jpg') }})">
         <div class="container">
@@ -74,7 +80,7 @@
                             width="100%" height="530px" frameborder="0" style="border:0" allowfullscreen></iframe> --}}
                         <iframe
                             src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d504.2973572498496!2d106.68075281637816!3d10.770841978517531!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x316c1f9beeef96bf%3A0xd8d4cf92c5d8ad9a!2zU8OgaSBHw7JuIEZvcmQgQ2FvIFRo4bqvbmc!5e0!3m2!1svi!2s!4v1697553858068!5m2!1svi!2s"
-                            width="100%" height="530px" frameborder="0" style="border:0" allowfullscreen></iframe>
+                            width="100%" height="500px" frameborder="0" style="border:0" allowfullscreen></iframe>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-xs-12">
@@ -85,29 +91,26 @@
                             @csrf
 
                             <div class="row">
-
-                                <div class="col-md-6 col-sm-12">
-                                    <fieldset>
-                                        <input name="name" type="text" id="name" placeholder="Your Name"
-                                            required="">
-                                    </fieldset>
-                                </div>
-                                <div class="col-md-6 col-sm-12">
-                                    <fieldset>
-                                        <input name="email" type="text" id="email" pattern="[^ @]*@[^ @]*"
-                                            placeholder="Your Email" required="">
-                                    </fieldset>
-                                </div>
-
                                 <div class="col-lg-12">
                                     <fieldset>
                                         <textarea name="message" rows="6" id="message" placeholder="Message" required=""></textarea>
                                     </fieldset>
                                 </div>
                                 <div class="col-lg-12">
-                                    <fieldset>
-                                        <button type="submit" id="form-submit" class="main-button">Send Message</button>
-                                    </fieldset>
+
+                                    @if (auth()->check() && auth()->user()->role === 0)
+                                        <fieldset>
+                                            <button type="submit" id="form-submit"class="main-button btn btn-primary">Send
+                                                Message</button>
+                                        </fieldset>
+                                    @else
+                                        <fieldset>
+                                            <a id="form-submit" class="main-button btn btn-primary"
+                                                onclick="return alert('You must login to continue')"
+                                                href="{{ route('login') }}">Send
+                                                Message</a>
+                                        </fieldset>
+                                    @endif
                                 </div>
                             </div>
                         </form>
@@ -116,5 +119,23 @@
             </div>
         </div>
     </section>
+
+
+
+
+
+
+
+
+
+
+    <script>
+        setTimeout(function() {
+            var alertMessage = document.getElementById('alert-message');
+            if (alertMessage) {
+                alertMessage.parentNode.removeChild(alertMessage);
+            }
+        }, 4000);
+    </script>
     <!-- ***** Contact Us Area Ends ***** -->
 @endsection

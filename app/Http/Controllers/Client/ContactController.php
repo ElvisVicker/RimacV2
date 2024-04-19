@@ -15,13 +15,14 @@ class ContactController extends Controller
         return view('client.pages.contact.contact');
     }
 
-    public function store(StoreContactRequest $request)
+    public function store(Request $request)
     {
-        $check = DB::table('contacts')->insert([
-            "name" => $request->name,
-            "email" => $request->email,
-            "message" => $request->message,
-            "status" => '1',
+
+
+        $check = DB::table('contact')->insert([
+            "customer_id" => auth()->user()->id,
+            "comment" => $request->message,
+            "status" => 1,
             "created_at" => Carbon::now(),
             "updated_at" => Carbon::now()
         ]);

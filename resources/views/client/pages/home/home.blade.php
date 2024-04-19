@@ -2,6 +2,16 @@
 
 @section('content')
     <!-- ***** Main Banner Area Start ***** -->
+
+
+    @if (session('message'))
+        <div id="alert-message" class="alert alert-{{ session('message') == 'Buy Success' ? 'success' : 'success' }}">
+            {{ session('message') }}
+        </div>
+    @endif
+
+
+
     <div class="main-banner" id="top">
         <video autoplay muted loop id="bg-video">
             <source src="{{ asset('assets/client/images/video.mp4') }}" type="video/mp4" />
@@ -11,9 +21,6 @@
             <div class="caption">
                 <h6>Young talents and Rimac are contributing to the future</h6>
                 <h2> <em>Rimac</em> & One <em>Young</em> World</h2>
-
-
-
 
                 <div class="main-button">
                     <a href="{{ route('client.contact') }}">Contact Us</a>
@@ -482,5 +489,14 @@
             </div>
         </div>
     </section>
+
+    <script>
+        setTimeout(function() {
+            var alertMessage = document.getElementById('alert-message');
+            if (alertMessage) {
+                alertMessage.parentNode.removeChild(alertMessage);
+            }
+        }, 4000);
+    </script>
     <!-- ***** Testimonials Item End ***** -->
 @endsection

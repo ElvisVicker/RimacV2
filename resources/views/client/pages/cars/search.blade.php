@@ -1,4 +1,4 @@
-<div class="row col-lg-9 col-md-8 col-sm-8">
+{{-- <div class="row col-lg-9 col-md-8 col-sm-8">
     @foreach ($cars as $car)
         <div class="col-lg-6 col-md-12 col-sm-12">
             <div class="trainer-item">
@@ -36,4 +36,4 @@
             </div>
         </div>
     @endforeach
-</div>
+</div> --}}

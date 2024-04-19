@@ -135,6 +135,7 @@ Route::prefix('client')->name('client.')->group(function () {
     Route::get('fetch_data_pagination', [ClientCarController::class, 'fetch_data_pagination'])->name('fetch_data_pagination');
 
     Route::get('fetch_data_search', [ClientCarController::class, 'fetch_data_search'])->name('fetch_data_search');
+    Route::get('fetch_data_filter', [ClientCarController::class, 'fetch_data_filter'])->name('fetch_data_filter');
 
 
     Route::get('detail/{id?}/{slug}', [ClientCarController::class, 'detail'])->name('detail');
