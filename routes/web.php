@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\ImportOrderController;
 use App\Http\Controllers\Admin\OrderCategoryController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RentOrderController as AdminRentOrderController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Client\BuyController;
 use App\Http\Controllers\Client\CarController as ClientCarController;
 use App\Http\Controllers\Client\CartController;
@@ -58,6 +59,11 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::get('fetch_data_login', [AuthenticatedSessionController::class, 'fetch_data_login'])->name('fetch_data_login');
+
+
+
 
 require __DIR__ . '/auth.php';
 

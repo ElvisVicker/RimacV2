@@ -23,6 +23,7 @@ class EmployeeController extends Controller
 
 
 
+
         $employees = DB::table('users')
             ->select(
                 'users.*',

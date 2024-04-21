@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-guest-layout id="loginForm">
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
     <form class="login-form-cus" method="POST" action="{{ route('login') }}">
@@ -9,7 +9,8 @@
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required
                 autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            {{-- <x-input-error id="errorEmail" :messages="$errors->get('email')" class="mt-2" /> --}}
+            <div id="errorEmail" class="mt-2" style="color:red;"></div>
         </div>
 
         <!-- Password -->
@@ -20,6 +21,7 @@
                 autocomplete="current-password" />
 
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
+            {{-- <div id="errorPassword" class="mt-2" style="color:red;"></div> --}}
         </div>
 
         <!-- Remember Me -->
@@ -44,4 +46,34 @@
             </x-primary-button>
         </div>
     </form>
+
+
+    {{-- @include('auth.fetch_login') --}}
 </x-guest-layout>
+
+<script src="{{ asset('assets/client/js/jquery-2.1.0.min.js') }}"></script>
+<script src="{{ asset('assets/client/js/popper.js') }}"></script>
+<script src="{{ asset('assets/client/js/bootstrap.min.js') }}"></script>
+
+<script>
+    $(document).ready(function() {
+        $(document).on('keyup', '#email', function(event) {
+            event.preventDefault();
+            let email = $('#email').val();
+            let password = $('#password').val();
+            $.ajax({
+                type: "GET",
+                url: "{{ route('fetch_data_login') }}",
+                data: {
+                    email: email,
+                    password: password
+                },
+                success: function(data) {
+                    $("#errorEmail").text(data.success);
+
+                }
+
+            });
+        });
+    });
+</script>

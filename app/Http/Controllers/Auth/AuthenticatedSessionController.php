@@ -10,6 +10,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator as FacadesValidator;
+use Validator;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -55,5 +58,52 @@ class AuthenticatedSessionController extends Controller
         Cookie::queue(Cookie::forget('allCarId'));
 
         return redirect('/client/home');
+    }
+
+
+
+    public function fetch_data_login(Request $request)
+    {
+        $users = DB::table('users')
+            ->where('email', '=', $request->email)
+            ->get();
+
+
+
+        if ($request->email == '') {
+            return response()->json(['success' => 'Email required!']);
+        } else {
+            if (count($users) == 1) {
+                return response()->json(['success' => '']);
+            } else {
+                return response()->json(['success' => 'These credentials do not match our records!']);
+            }
+        }
+
+
+        // return response()->json(['success' => 'Added new records.']);
+        // return view('auth.fetch_login', [
+        //     'users' => $users,
+        // ])->render();
+
+
+        // if ($validator->passes()) {
+        //     return response()->json(['success' => 'Added new records.']);
+        // }
+
+        // return response()->json(['errors' => $validator->errors()]);
+
+
+
+
+        // if ($request->ajax()) {
+        //     $users = DB::table('users')
+        //         ->where('email', '=', $request->email)
+        //         ->where('password', '=', $request->password)
+        //         ->get();
+        //     return view('auth.fetch_login', [
+        //         'users' => $users,
+        //     ])->render();
+        // }
     }
 }

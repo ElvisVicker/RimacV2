@@ -416,10 +416,6 @@
         });
 
 
-
-
-
-
         $(document).ready(function() {
             $(document).on('keyup', '#searchInput', function(event) {
                 event.preventDefault();
