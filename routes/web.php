@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\CarController;
 use App\Http\Controllers\Admin\CarImagesController;
 use App\Http\Controllers\Admin\ChartController;
 use App\Http\Controllers\Admin\ContactController;
+use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\ExportOrderController;
 use App\Http\Controllers\Admin\FunctionController;
@@ -77,6 +78,12 @@ Route::prefix('')->middleware('auth.admin')->name('admin.')->group(function () {
     Route::resource('employees', EmployeeController::class);
     Route::get('employees/{employee}/restore', [EmployeeController::class, 'restore'])->name('employees.restore');
 
+    Route::resource('customers', CustomerController::class);
+    Route::get('customers/{customer}/restore', [CustomerController::class, 'restore'])->name('customers.restore');
+
+
+
+
     Route::resource('order_categories', OrderCategoryController::class);
     // // Account
     // Route::resource('account', AccountController::class);
@@ -98,6 +105,7 @@ Route::prefix('')->middleware('auth.admin')->name('admin.')->group(function () {
     // // Car
     Route::resource('car', CarController::class);
     Route::get('car/{car}/restore', [CarController::class, 'restore'])->name('car.restore');
+    Route::get('car/{car}/deleteImage', [CarController::class, 'deleteImage'])->name('car.deleteImage');
     Route::post('car/slug', [CarController::class, 'createSlug'])->name('car.create.slug');
 
 
@@ -106,7 +114,7 @@ Route::prefix('')->middleware('auth.admin')->name('admin.')->group(function () {
 
     Route::resource('export_order', ExportOrderController::class);
 
-
+    Route::resource('contact', ContactController::class);
 
 
 

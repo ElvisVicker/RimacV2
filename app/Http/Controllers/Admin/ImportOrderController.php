@@ -48,16 +48,19 @@ class ImportOrderController extends Controller
                 'import_details.import_price as import_price',
                 'import_details.quantity as quantity',
 
+                'users.name as user_name',
+
                 'cars.name as car_name',
             )
 
             ->join('orders', 'orders.id', '=', 'import_orders.order_id')
             ->join('import_details', 'import_details.import_id', '=', 'import_orders.id')
             ->join('cars', 'cars.id', '=', 'import_details.car_id')
+            ->join('users', 'users.id', '=', 'orders.employee_id')
             ->orderBy('import_created_at', 'desc')
             ->paginate(10);
         // ->get();
-
+        // dd($import_orders);
 
         return view('admin.pages.import_order.list', ['import_orders' => $import_orders]);
     }
@@ -99,10 +102,10 @@ class ImportOrderController extends Controller
         // id = 1 -> import
 
         // dd($order_categories[0]->id);
-
+        // dd();
         DB::table('orders')->insert([
             "id" => $getNextIdOrder[0]->Auto_increment,
-            // "employee_id" => 1,
+            "employee_id" => auth()->user()->id,
             "category_id" => $order_categories[0]->id,
             "status" => 1,
             "created_at" => Carbon::now(),
@@ -142,18 +145,45 @@ class ImportOrderController extends Controller
      */
     public function show(string $id)
     {
-        $buy_order = DB::table('import_orders')->where('id', $id)->get();
-        $buyer = DB::table('buyers')->where('id', '=', $buy_order[0]->buyer_id)->get();
-        $car = DB::table('cars')->where('id', '=', $buy_order[0]->car_id)->get();
-        $user = DB::table('users')->where('id', '=', $buy_order[0]->staff_id)->get();
+
+
+
+
+        $import_order = DB::table('import_orders')
+            ->select(
+                'import_orders.id as import_id',
+                'import_orders.order_id as order_id',
+                'import_orders.created_at as import_created_at',
+
+                'orders.id as orders_id',
+                'orders.employee_id as employee_id',
+
+                'import_details.car_id as car_id',
+                'import_details.import_price as import_price',
+                'import_details.quantity as quantity',
+
+                'users.name as user_name',
+                'users.last_name as user_lastname',
+                'users.image as user_image',
+
+                'cars.name as car_name',
+            )
+
+            ->join('orders', 'orders.id', '=', 'import_orders.order_id')
+            ->join('import_details', 'import_details.import_id', '=', 'import_orders.id')
+            ->join('cars', 'cars.id', '=', 'import_details.car_id')
+            ->join('users', 'users.id', '=', 'orders.employee_id')
+            ->where('import_id', '=', $id)
+
+            ->get();
+
+
 
         return view(
-            'admin.pages.buy_order.detail',
+            'admin.pages.import_order.detail',
             [
-                'buy_order' => $buy_order,
-                'buyer' => $buyer,
-                'car' => $car,
-                'user' => $user
+                'import_order' => $import_order[0],
+
             ]
         );
     }

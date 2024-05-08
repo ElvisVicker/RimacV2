@@ -138,7 +138,7 @@ class BuyController extends Controller
         // $vnp_Amount = $prepay * 24520;
         $vnp_Amount = $prepay; // Số tiền thanh toán
         $vnp_Locale = "VN"; //Ngôn ngữ chuyển hướng thanh toán
-        $vnp_BankCode =  "NCB"; //Mã phương thức thanh toán
+        $vnp_BankCode =  ""; //Mã phương thức thanh toán
         $vnp_IpAddr = $_SERVER['REMOTE_ADDR']; //IP Khách hàng thanh toán
 
         $inputData = array(

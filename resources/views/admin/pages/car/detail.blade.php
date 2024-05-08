@@ -194,17 +194,10 @@
                                             alt="" height="100px" width="200px" style="object-fit: cover;">
                                     @endif
                                 </div>
-
-
-
+                                <a class="btn btn-danger" style="cursor: pointer;"
+                                    href="{{ route('admin.car.deleteImage', $car->id) }}">Remove Image</a>
                             </div>
-
-
-
-
                         </div>
-
-
                         <br>
                         <h4>Size</h4>
                         <hr>

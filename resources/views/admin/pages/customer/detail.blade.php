@@ -3,12 +3,7 @@
 @section('content')
     <div class="page-heading">
         <h1 class="page-title">Profile</h1>
-        {{-- <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-                <a href="index.html"><i class="la la-home font-20"></i></a>
-            </li>
 
-        </ol> --}}
     </div>
     <div class="page-content fade-in-up">
         <div class="row">
@@ -17,15 +12,18 @@
                     <div class="ibox-body text-center">
                         <div class="m-t-20">
                             @php
-                                $imagesLink = is_null($account->image) || !file_exists('images/' . $account->image) ? 'https://phutungnhapkhauchinhhang.com/wp-content/uploads/2020/06/default-thumbnail.jpg' : asset('images/' . $account->image);
+                                $imagesLink =
+                                    is_null($customer->image) || !file_exists('images/' . $customer->image)
+                                        ? 'https://i.pinimg.com/736x/0d/64/98/0d64989794b1a4c9d89bff571d3d5842.jpg'
+                                        : asset('images/' . $customer->image);
                             @endphp
                             <img src="{{ $imagesLink }}" class="img-circle" width="200px" height="200px"
                                 style="object-fit: cover;">
                         </div>
-                        <h4 class="m-b-10 m-t-10 font-weight-bold">{{ $account->name }}
-                            {{ $account->middle_name }}
-                            {{ $account->last_name }}</h4>
-                        <div class="m-b-20 text-muted">{{ $account->role ? 'Admin' : 'Staff' }}</div>
+                        <h4 class="m-b-10 m-t-10 font-weight-bold">{{ $customer->name }}
+                            {{ $customer->middle_name }}
+                            {{ $customer->last_name }}</h4>
+                        <div class="m-b-20 text-muted">Customer</div>
                         <div class="profile-social m-b-20">
                             <i class="fa fa-twitter"></i>
                             <i class="fa fa-facebook"></i>
@@ -54,39 +52,52 @@
                                         <div class="row">
                                             <div class="form-group col-md-6 ">
                                                 <h4 class="font-weight-bold">Gender</h4>
-                                                <h5>{{ $account->gender ? 'Male' : 'Female' }}</h5>
+                                                <h5>{{ $customer->gender ? 'Male' : 'Female' }}</h5>
                                             </div>
                                             <div class="form-group col-md-6 ">
                                                 <h4 class="font-weight-bold">Email Address</h4>
-                                                <h5>{{ $account->email }}</h5>
+                                                <h5>{{ $customer->email }}</h5>
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <h4 class="font-weight-bold">Phone Number</h4>
-                                                <h5>{{ $account->phone_number }}</h5>
+                                                <h5>{{ $customer->phone_number }}</h5>
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <h4 class="font-weight-bold">Address</h4>
-                                                <h5>{{ $account->address }}</h5>
+                                                <h5>{{ $customer->address }}</h5>
                                             </div>
 
                                             <div class="form-group col-md-6">
                                                 <h4 class="font-weight-bold">Status</h4>
-                                                <h5> {{ $account->status ? 'Available' : 'Unavailable' }}</h5>
+                                                <h5> {{ $customer->status ? 'Available' : 'Unavailable' }}</h5>
                                             </div>
 
                                             <div class="form-group col-md-6">
-                                                <h4 class="font-weight-bold">Account's Created Date</h4>
+                                                <h4 class="font-weight-bold">Customer's Created Date</h4>
 
-                                                <h5> {{ date('d/m/Y', strtotime($account->created_at)) }}</h5>
+                                                <h5> {{ date('d/m/Y', strtotime($customer->created_at)) }}</h5>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+
+                                            <div class="form-group col-md-6">
+                                                {{-- <a class="btn btn-primary" style="cursor: pointer;"
+                                                    href="{{ route('admin.customers.edit', ['customer' => $customer->id]) }}">Edit</a> --}}
+
+
+                                                <a class="btn btn-success" style="cursor: pointer;"
+                                                    href="{{ route('admin.customers.index') }}">Back to list</a>
+
                                             </div>
                                         </div>
                                     </div>
 
+                                    {{-- {{ dd(route('admin.customers.edit', ['customer' => $customer->id])) }} --}}
 
 
 
-
-                                    <div class="col-md-12" style="border-right: 1px solid #eee;">
+                                    {{-- <div class="col-md-12" style="border-right: 1px solid #eee;">
                                         <h4 class="text-info m-b-20 m-t-10"><i class="fa fa-bar-chart"></i> Statistics
                                         </h4>
                                         <div class="row">
@@ -98,10 +109,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
 
-                                    <div class="col-md-12" style="border-right: 1px solid #eee;">
+                                    {{-- <div class="col-md-12" style="border-right: 1px solid #eee;">
                                         <h4 class="text-info m-b-20 m-t-20"><i class="fa fa-shopping-basket"></i> Orders
                                         </h4>
                                         <table class="table table-striped table-hover">
@@ -111,7 +122,6 @@
                                                     <th>Customer</th>
                                                     <th>Car Name</th>
                                                     <th>Amount</th>
-                                                    {{-- <th>Status</th> --}}
                                                     <th>Date</th>
                                                 </tr>
                                             </thead>
@@ -124,11 +134,7 @@
                                                         </td>
                                                         <td>{{ $buy_order->car_name }}</td>
                                                         <td>{{ number_format($buy_order->total_price, 2) }}$</td>
-                                                        {{-- <td>
-                                                            <div
-                                                                class="{{ $buy_order->car_status ? 'btn btn-success m-2 Show' : 'btn btn-danger m-2 Hide' }}">
-                                                                {{ $buy_order->car_status ? 'In stored' : 'Sold' }}</div>
-                                                        </td> --}}
+
                                                         <td>{{ date('d/m/Y', strtotime($buy_order->updated_at)) }}</td>
 
                                                     </tr>
@@ -139,7 +145,7 @@
                                                 @endforelse
                                             </tbody>
                                         </table>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
@@ -173,7 +179,7 @@
                 <div class="col-sm-12 col-xl-12">
 
                     <form form class="bg-secondary rounded h-100 p-4" method="post"
-                        action="{{ route('admin.account.update', ['account' => $account->id]) }}"
+                        action="{{ route('admin.employee.update', ['account' => $account->id]) }}"
                         enctype="multipart/form-data">
                         @csrf
                         @method('put')

@@ -20,27 +20,53 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Car Name</th>
-                                    <th>Quantity</th>
-                                    <th>Total Price</th>
+                                    <th>Customer First Name</th>
+                                    <th>Customer Last Name</th>
+                                    <th>Prepay</th>
+                                    <th>Created's Date</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
 
-                                {{-- {{ dd($export_orders) }} --}}
+
                                 @forelse ($export_orders as $export_order)
                                     <tr>
 
                                         {{-- {{ dd($export_order) }} --}}
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $export_order->car_name }}</td>
-                                        <td>{{ $export_order->quantity }}</td>
-                                        <td>{{ $export_order->import_price * $export_order->quantity }}</td>
+                                        <td>{{ $export_order->customer_name }}</td>
+                                        <td>{{ $export_order->customer_last_name }}</td>
+                                        <td> {{ number_format($export_order->prepay, 2) }}$</td>
+                                        <td> {{ date('d/m/Y', strtotime($export_order->export_created_at)) }}</td>
+                                        <td>
+                                            <div
+                                                class="@php if ($export_order->export_status == 0) {
+                                                    echo 'btn btn-danger';
+                                                } elseif ($export_order->export_status == 1) {
+                                                    echo 'btn btn-success';
+                                                } else {
+                                                    echo 'btn btn-warning';
+                                                } @endphp">
+                                                @php
+                                                    if ($export_order->export_status == 0) {
+                                                        echo 'Pending';
+                                                    } elseif ($export_order->export_status == 1) {
+                                                        echo 'Done';
+                                                    } else {
+                                                        echo 'Reserved';
+                                                    }
+                                                @endphp
+                                            </div>
+                                        </td>
+
+
+
                                         <td style="display: flex; gap:4px;">
-                                            {{-- <a class="btn btn-info "
-                                                href="{{ route('admin.export_order.show', ['export_order' => $export_order->id]) }}">Detail
-                                            </a> --}}
+                                            <a class="btn btn-info "
+                                                href="{{ route('admin.export_order.show', ['export_order' => $export_order->export_id]) }}">Detail
+                                            </a>
 
 
 

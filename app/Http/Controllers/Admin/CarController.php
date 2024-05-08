@@ -200,6 +200,29 @@ class CarController extends Controller
         return redirect()->route('admin.car.index')->with('message', 'Deleted Car Success');
     }
 
+
+
+    public function deleteImage(string $id)
+    {
+        $dCarImage = DB::table('cars')->find($id);
+        $oldImageFileName[] = $dCarImage->image;
+        foreach (explode(', ', implode(', ', $oldImageFileName)) as $oldImage) {
+            if (!is_null($oldImage) && file_exists('images/' . $oldImage)) {
+                if ($oldImage != '') {
+                    unlink('images/' . $oldImage);
+                }
+            }
+        }
+        DB::table('cars')->where('id', '=', $id)->update([
+            "image" => null
+        ]);
+        return redirect()->route('admin.car.index')->with('message', 'Deleted Car Success');
+    }
+
+
+
+
+
     public function restore(string $id)
     {
         $carData = Car::withTrashed()->find($id);

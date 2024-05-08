@@ -78,9 +78,15 @@
                         {{-- <iframe
                             src="https://maps.google.com/maps?q=Av.+L%C3%BAcio+Costa,+Rio+de+Janeiro+-+RJ,+Brazil&t=&z=13&ie=UTF8&iwloc=&output=embed"
                             width="100%" height="530px" frameborder="0" style="border:0" allowfullscreen></iframe> --}}
-                        <iframe
+                        {{-- <iframe
                             src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d504.2973572498496!2d106.68075281637816!3d10.770841978517531!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x316c1f9beeef96bf%3A0xd8d4cf92c5d8ad9a!2zU8OgaSBHw7JuIEZvcmQgQ2FvIFRo4bqvbmc!5e0!3m2!1svi!2s!4v1697553858068!5m2!1svi!2s"
+                            width="100%" height="500px" frameborder="0" style="border:0" allowfullscreen></iframe> --}}
+
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d396.42607471711483!2d106.68085037943798!3d10.770966778444302!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752885e1f3ca05%3A0x89845b83cd059320!2zU8OgaSBHw7JuIEZvcmQgQ2FvIFRo4bqvbmc!5e0!3m2!1svi!2s!4v1714705930288!5m2!1svi!2s"
                             width="100%" height="500px" frameborder="0" style="border:0" allowfullscreen></iframe>
+
+
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-xs-12">

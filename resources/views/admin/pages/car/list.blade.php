@@ -41,8 +41,13 @@
                                     <tr>
                                         <td>{{ $loop->iteration }} </td>
                                         <td>{{ $car->name }}</td>
-                                        <td>{{ $car->import_price }}</td>
-                                        <td>{{ $car->export_price }}</td>
+                                        {{-- <td>{{ $car->import_price }}</td>
+                                        <td>{{ $car->export_price }}</td> --}}
+
+                                        <td>{{ number_format($car->import_price, 2) }}
+                                            $</td>
+                                        <td>{{ number_format($car->export_price, 2) }}
+                                            $</td>
                                         <td>{{ $car->quantity }}</td>
 
                                         <td>{{ $car->car_category_name }}</td>

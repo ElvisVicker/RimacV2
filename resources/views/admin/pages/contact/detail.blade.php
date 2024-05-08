@@ -8,7 +8,7 @@
     </div>
     <div class="page-content fade-in-up">
         <div class="row">
-
+            {{-- {{ dd($contact) }} --}}
 
             <div class="col-lg-12 col-md-12">
                 <div class="ibox">
@@ -28,12 +28,12 @@
                                         <div class="row">
 
                                             <div class="form-group col-md-6">
-                                                <h4 class="font-weight-bold">Name</h4>
-                                                <h5>{{ $contact->name }}</h5>
+                                                <h4 class="font-weight-bold">First Name</h4>
+                                                <h5>{{ $contact->user_name }}</h5>
                                             </div>
                                             <div class="form-group col-md-6 ">
-                                                <h4 class="font-weight-bold">Email Address</h4>
-                                                <h5>{{ $contact->email }}</h5>
+                                                <h4 class="font-weight-bold">Last Name</h4>
+                                                <h5>{{ $contact->user_lastname }}</h5>
                                             </div>
 
                                             <div class="form-group col-md-6">
@@ -48,13 +48,32 @@
                                     <div class="col-md-12" style="border-right: 1px solid #eee;">
                                         <h4 class="text-info m-b-20 m-t-10"><i class="fa fa-bar-chart"></i> Messages</h4>
 
-                                        <textarea class="col-md-6" rows="20" cols="1000">{{ $contact->message }}</textarea>
+                                        <textarea class="col-md-6" rows="20" cols="1000" readonly>{{ $contact->comment }}</textarea>
 
                                     </div>
 
 
 
                                 </div>
+
+
+
+                                <div class="row">
+
+                                    <div class="form-group col-md-6">
+
+                                        <a class="btn btn-success" style="cursor: pointer;"
+                                            href="{{ route('admin.contact.index') }}">Back to list</a>
+
+                                    </div>
+                                </div>
+
+
+
+
+
+
+
                             </div>
                         </div>
                     </div>
@@ -160,5 +179,3 @@
         </div>
     </div>
 @endsection --}}
-
-

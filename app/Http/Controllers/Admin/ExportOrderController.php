@@ -13,32 +13,46 @@ class ExportOrderController extends Controller
      */
     public function index()
     {
-        $import_orders = DB::table('export_orders')
-            // ->select(
-            // 'import_orders.id as import_id',
-            // 'import_orders.order_id as order_id',
-            // 'import_orders.created_at as import_created_at',
+        $export_orders = DB::table('export_orders')
+            ->select(
+                'export_orders.id as export_id',
+                'export_orders.order_id as order_id',
+                'export_orders.customer_id as customer_id',
+                'export_orders.prepay as prepay',
+                'export_orders.created_at as export_created_at',
+                'export_orders.status as export_status',
+                // 'orders.id as orders_id',
+                // 'orders.employee_id as employee_id',
 
-            // 'orders.id as orders_id',
-            // 'orders.employee_id as employee_id',
+                'users.name as customer_name',
+                'users.last_name as customer_last_name',
 
-            // 'import_details.car_id as car_id',
-            // 'import_details.import_price as import_price',
-            // 'import_details.quantity as quantity',
+                // 'export_details.car_id as car_id',
+                // 'export_details.import_price as import_price',
+                // 'export_details.quantity as quantity',
 
-            // 'cars.name as car_name',
-            // )
+                // 'cars.name as car_name',
+            )
 
-            // ->join('orders', 'orders.id', '=', 'import_orders.order_id')
-            // ->join('import_details', 'import_details.import_id', '=', 'import_orders.id')
-            // ->join('cars', 'cars.id', '=', 'import_details.car_id')
-            // ->orderBy('import_created_at', 'desc')
+            // ->join('orders', 'orders.id', '=', 'export_orders.order_id')
+            // ->join('import_details', 'import_details.import_id', '=', 'export_orders.id')
+            ->join('users', 'users.id', '=', 'export_orders.customer_id')
+
+
+
+            ->orderBy('export_created_at', 'desc')
+
             ->paginate(10);
         // ->get();
 
-        return view('admin.pages.import_order.list', ['import_orders' => $import_orders]);
 
-        // return view('admin.pages.import_order.list', ['import_orders' => $import_orders]);
+
+
+
+        // dd($export_orders);
+        return view('admin.pages.export_order.list', ['export_orders' => $export_orders]);
+
+        // return view('admin.pages.import_order.list', ['export_orders' => $export_orders]);
     }
 
     /**
@@ -62,7 +76,45 @@ class ExportOrderController extends Controller
      */
     public function show(string $id)
     {
-        //
+
+
+        $export_order = DB::table('export_orders')
+            ->select(
+                'export_orders.id as export_id',
+                'export_orders.order_id as order_id',
+                'export_orders.created_at as export_created_at',
+                'export_orders.status as export_status',
+                // 'orders.id as orders_id',
+                'orders.employee_id as employee_id',
+
+                'export_details.car_id as car_id',
+                'export_details.export_price as export_price',
+                'export_details.quantity as quantity',
+
+
+                // 'users.last_name as user_lastname',
+                // 'users.image as user_image',
+
+                'cars.name as car_name',
+            )
+
+            ->join('orders', 'orders.id', '=', 'export_orders.order_id')
+            ->join('export_details', 'export_details.export_id', '=', 'export_orders.id')
+            ->join('cars', 'cars.id', '=', 'export_details.car_id')
+            // ->join('users', 'users.id', '=', 'orders.employee_id')
+            ->where('export_orders.id', '=', $id)
+
+            ->get();
+
+        // dd($export_order);
+
+        return view(
+            'admin.pages.export_order.detail',
+            [
+                'export_order' => $export_order[0],
+
+            ]
+        );
     }
 
     /**

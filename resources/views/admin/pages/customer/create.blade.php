@@ -14,7 +14,7 @@
 
 
                 <div class="ibox-body">
-                    <form form method="post" action="{{ route('admin.account.store') }}" enctype="multipart/form-data">
+                    <form form method="post" action="{{ route('admin.employees.store') }}" enctype="multipart/form-data">
                         @csrf
 
                         <br>
@@ -107,7 +107,7 @@
                         <hr>
 
                         <div class="row">
-                            <div class="form-group col-md-6">
+                            {{-- <div class="form-group col-md-6">
                                 <label style="font-weight:bold;">*Role</label>
                                 <div>
                                     <label class="ui-radio ui-radio-inline">
@@ -122,7 +122,7 @@
                                 @error('role')
                                     <div class="p-2 mb-4 bg-danger text-white">{{ $message }}</div>
                                 @enderror
-                            </div>
+                            </div> --}}
 
                             {{-- <div class="form-group col-md-6">
                                 <label style="font-weight:bold;">Status</label>
@@ -142,6 +142,29 @@
                             </div> --}}
 
 
+
+
+
+                            <div class="form-group col-md-4">
+                                <label style="font-weight:bold;">Permission</label>
+                                <select class="form-control" name="permission_id">
+                                    <option value="">--Permission--</option>
+                                    @foreach ($permissions as $permission)
+                                        <option value="{{ $permission->id }}">{{ $permission->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                {{-- @error('brand_id')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror --}}
+                            </div>
+
+
+
+
+
+
+
                             <div class="form-group col-md-6">
                                 <label style="font-weight:bold;" for="formFile" class="form-label">Your Avatar</label>
                                 <input class="form-control" type="file" name="image" id="image">
@@ -150,7 +173,17 @@
                                 @enderror
                             </div>
                         </div>
+
+
+
+
+
+
                         <input class="btn btn-primary" type="submit" value="Submit" style="cursor: pointer;">
+                        <a class="btn btn-success" style="cursor: pointer;"
+                            href="{{ route('admin.employees.index') }}">Back to list</a>
+
+
                     </form>
                 </div>
             </div>

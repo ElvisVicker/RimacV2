@@ -23,6 +23,7 @@
                                     <th>Car Name</th>
                                     <th>Quantity</th>
                                     <th>Total Price</th>
+                                    <th>Import Staff</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -32,15 +33,20 @@
                                 @forelse ($import_orders as $import_order)
                                     <tr>
 
-                                        {{-- {{ dd($import_order) }} --}}
+                                        {{-- {{ dd($import_order->import_id) }} --}}
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $import_order->car_name }}</td>
                                         <td>{{ $import_order->quantity }}</td>
-                                        <td>{{ $import_order->import_price * $import_order->quantity }}</td>
+                                        <td>{{ number_format($import_order->import_price * $import_order->quantity, 2) }}
+                                            $</td>
+
+
+
+                                        <td>{{ $import_order->user_name }}</td>
                                         <td style="display: flex; gap:4px;">
-                                            {{-- <a class="btn btn-info "
-                                                href="{{ route('admin.import_order.show', ['import_order' => $import_order->id]) }}">Detail
-                                            </a> --}}
+                                            <a class="btn btn-info "
+                                                href="{{ route('admin.import_order.show', ['import_order' => $import_order->import_id]) }}">Detail
+                                            </a>
 
 
 

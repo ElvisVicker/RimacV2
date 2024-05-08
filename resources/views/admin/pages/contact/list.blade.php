@@ -16,17 +16,18 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                {{-- {{ dd($contacts) }} --}}
                                 @forelse ($contacts as $contact)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $contact->name }}</td>
-                                        <td>{{ $contact->email }}</td>
+                                        <td>{{ $contact->user_name }}</td>
+                                        <td>{{ $contact->user_lastname }}</td>
                                         <td style="display: flex; gap:4px;">
                                             <a class="btn btn-primary" style="cursor: pointer;"
                                                 href="{{ route('admin.contact.show', ['contact' => $contact->id]) }}">Detail</a>

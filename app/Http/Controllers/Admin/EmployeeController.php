@@ -19,11 +19,6 @@ class EmployeeController extends Controller
         // $employees = DB::table('users')->orderBy('created_at', 'desc')->paginate(10);
         // $employeeRoles = DB::table('employees')->get();
         // dd($employeeRoles);
-
-
-
-
-
         $employees = DB::table('users')
             ->select(
                 'users.*',
@@ -31,7 +26,9 @@ class EmployeeController extends Controller
             )
             ->join('employees', 'users.id', '=', 'employees.user_id')
             ->orderBy('created_at', 'desc')
+            ->where('role', '=', 1)
             ->paginate(10);
+
         return view('admin.pages.employee.list', ['employees' => $employees]);
     }
 
@@ -345,7 +342,8 @@ class EmployeeController extends Controller
 
 
         DB::table('users')->where('id', '=', $id)->update([
-            "status" => 0
+            "status" => 0,
+            'deleted_at' => Carbon::now()
         ]);
 
         DB::table('accounts')->where('user_id', '=', $id)->update([
@@ -366,7 +364,8 @@ class EmployeeController extends Controller
         $userData->restore();
 
         DB::table('users')->where('id', '=', $id)->update([
-            "status" => 1
+            "status" => 1,
+            'deleted_at' => null
         ]);
         DB::table('accounts')->where('user_id', '=', $id)->update([
             "status" => 1,

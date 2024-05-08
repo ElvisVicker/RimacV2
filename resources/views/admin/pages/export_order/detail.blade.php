@@ -1,6 +1,91 @@
 @extends('admin.layout.master')
 
+@section('content')
+    <div class="container-fluid pt-4 px-4">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="ibox">
+                    <div class="ibox-head">
+                        <div class="ibox-title">Bordered Table</div>
+                    </div>
+                    <div class="ibox-body">
 
+
+
+                        <form form method="post"
+                            action="{{ route('admin.permissions.update', ['permission' => $permission->id]) }}">
+                            @csrf
+                            @method('put')
+                            <div class="row">
+                                <div class="col-sm-6 form-group">
+                                    <label>Permission Name</label>
+                                    <input class="form-control" name="name" type="text" placeholder="Permission Name"
+                                        value="{{ $permission->name }}">
+                                </div>
+                            </div>
+
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Function</th>
+                                        <th>Create</th>
+                                        <th>Read</th>
+                                        <th>Update</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                </thead>
+                                {{-- {{ dd($functions) }} --}}
+                                <tbody>
+                                    @foreach ($permission_detail as $item)
+                                        {{-- {{ dd($permission_detail) }}
+                                        {{ dd($item) }} --}}
+                                        {{-- {{ dd($item->create) }} --}}
+                                        <tr>
+                                            <td><input type="hidden" name="functionName[]" style="border: none;" readonly
+                                                    value="{{ $item->function_id }}"> {{ $item->function_name }}</td>
+
+
+                                            <td> <label class="ui-checkbox ui-checkbox-inline">
+                                                    <input type="checkbox" name="checkBox[{{ $item->function_id }}][0]"
+                                                        value="1" {{ $item->create == 1 ? 'checked' : '' }}>
+                                                    <span class="input-span"></span></label></td>
+                                            <td> <label class="ui-checkbox ui-checkbox-inline">
+                                                    <input type="checkbox" name="checkBox[{{ $item->function_id }}][1]"
+                                                        value="1" {{ $item->read == 1 ? 'checked' : '' }}>
+                                                    <span class="input-span"></span></label></td>
+                                            <td> <label class="ui-checkbox ui-checkbox-inline">
+                                                    <input type="checkbox" name="checkBox[{{ $item->function_id }}][2]"
+                                                        value="1" {{ $item->update == 1 ? 'checked' : '' }}>
+                                                    <span class="input-span"></span></label></td>
+                                            <td> <label class="ui-checkbox ui-checkbox-inline">
+                                                    <input type="checkbox" name="checkBox[{{ $item->function_id }}][3]"
+                                                        value="1" {{ $item->delete == 1 ? 'checked' : '' }}>
+                                                    <span class="input-span"></span></label></td>
+                                        </tr>
+                                    @endforeach
+
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <input class="btn btn-primary" type="submit" value="Submit" style="cursor: pointer;">
+                            <a class="btn btn-success" style="cursor: pointer;"
+                                href="{{ route('admin.permissions.index') }}">Back to
+                                list</a>
+
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+@endsection
+
+
+{{--
 @section('content')
     <div class="row">
         <div class="col-md-12">
@@ -12,7 +97,7 @@
                         <a class="fullscreen-link"><i class="fa fa-expand"></i></a>
                     </div>
                 </div>
-
+                {{ dd($export_order) }}
                 <div class="ibox-body">
                     <form enctype="multipart/form-data" method="post"
                         action="{{ route('admin.buy_order.update', ['buy_order' => $buy_order[0]->id]) }}">
@@ -25,7 +110,7 @@
                             <div class="form-group col-md-4">
                                 <label style="font-weight:bold;">First Name</label>
                                 <input type="text" class="form-control" id="first_name" name="first_name" readonly
-                                    value="{{  $buyer[0]->first_name }}" placeholder="First Name">
+                                    value="{{ $buyer[0]->first_name }}" placeholder="First Name">
                                 @error('first_name')
                                     <div class="p-2 mb-4 bg-danger text-white">{{ $message }}</div>
                                 @enderror
@@ -35,7 +120,7 @@
                             <div class="form-group col-md-4">
                                 <label style="font-weight:bold;">Last Name</label>
                                 <input type="text" class="form-control" id="last_name" name="last_name" readonly
-                                    value="{{  $buyer[0]->last_name }}" placeholder="Last Name">
+                                    value="{{ $buyer[0]->last_name }}" placeholder="Last Name">
                                 @error('last_name')
                                     <div class="p-2 mb-4 bg-danger text-white">{{ $message }}</div>
                                 @enderror
@@ -44,7 +129,7 @@
                             <div class="form-group col-md-4">
                                 <label style="font-weight:bold;">Address</label>
                                 <input type="text" class="form-control" id="address" name="address" readonly
-                                    value="{{  $buyer[0]->address }}" placeholder="Address">
+                                    value="{{ $buyer[0]->address }}" placeholder="Address">
                                 @error('address')
                                     <div class="p-2 mb-4 bg-danger text-white">{{ $message }}</div>
                                 @enderror
@@ -77,7 +162,7 @@
                             <div class="form-group col-md-4">
                                 <label style="font-weight:bold;">Car Name</label>
                                 <input type="text" class="form-control" id="car_name" name="car_name" readonly
-                                    value="{{  $car[0]->name }}" placeholder="Car Name">
+                                    value="{{ $car[0]->name }}" placeholder="Car Name">
                                 @error('car_name')
                                     <div class="p-2 mb-4 bg-danger text-white">{{ $message }}</div>
                                 @enderror
@@ -114,7 +199,7 @@
                             <div class="form-group col-md-4">
                                 <label style="font-weight:bold;">Staff Last Name</label>
                                 <input type="text" class="form-control" id="last_name" name="last_name" readonly
-                                    value="{{$user[0]->last_name }}" placeholder="Staff Last Name">
+                                    value="{{ $user[0]->last_name }}" placeholder="Staff Last Name">
                                 @error('last_name')
                                     <div class="p-2 mb-4 bg-danger text-white">{{ $message }}</div>
                                 @enderror
@@ -141,7 +226,7 @@
             </div>
         </div>
     </div>
-@endsection
+@endsection --}}
 
 
 
