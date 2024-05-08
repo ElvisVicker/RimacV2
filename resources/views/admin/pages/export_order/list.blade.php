@@ -10,8 +10,8 @@
                 <div class="ibox">
                     <div class="ibox-head">
                         <div class="ibox-title">All Orders</div>
-                        <a href="{{ route('admin.export_order.create') }}">
-                            <button class="btn btn-success" style="cursor: pointer;">Create New Account</button></a>
+                        {{-- <a href="{{ route('admin.export_order.create') }}">
+                            <button class="btn btn-success" style="cursor: pointer;">Create New Account</button></a> --}}
 
                     </div>
 
@@ -20,6 +20,7 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th>Export ID</th>
                                     <th>Customer First Name</th>
                                     <th>Customer Last Name</th>
                                     <th>Prepay</th>
@@ -36,6 +37,7 @@
 
                                         {{-- {{ dd($export_order) }} --}}
                                         <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $export_order->export_id }}</td>
                                         <td>{{ $export_order->customer_name }}</td>
                                         <td>{{ $export_order->customer_last_name }}</td>
                                         <td> {{ number_format($export_order->prepay, 2) }}$</td>

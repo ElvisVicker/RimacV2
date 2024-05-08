@@ -12,65 +12,148 @@
 
 
 
-                        <form form method="post"
-                            action="{{ route('admin.permissions.update', ['permission' => $permission->id]) }}">
-                            @csrf
-                            @method('put')
-                            <div class="row">
+
+
+
+
+
+                        <div class="tab-content">
+                            <div class="tab-pane fade show active">
+                                <div class="row">
+                                    <div class="col-md-12" style="border-right: 1px solid #eee;">
+                                        <h4 class="text-info m-b-20 m-t-10"><i class="fa fa-user"></i> Information
+                                        </h4>
+                                        <div class="row">
+                                            <div class="form-group col-md-6 ">
+                                                <h4 class="font-weight-bold">Export ID:</h4>
+                                                <h5>{{ $export_order[0]->export_id }}</h5>
+                                            </div>
+
+                                            <div class="form-group col-md-6 ">
+                                                <h4 class="font-weight-bold">Customer:</h4>
+                                                <h5>{{ $export_order[0]->customer_name }}
+                                                    {{ $export_order[0]->customer_last_name }}</h5>
+                                            </div>
+
+                                            <div class="form-group col-md-6 ">
+                                                <h4 class="font-weight-bold">Employee ID:</h4>
+                                                <h5>{{ $export_order[0]->employee_id }}</h5>
+                                            </div>
+
+
+                                            <div class="form-group col-md-6">
+                                                <h4 class="font-weight-bold">Order's Created Date:</h4>
+                                                <h5> {{ date('d/m/Y', strtotime($export_order[0]->export_created_at)) }}
+                                                </h5>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+
+
+                        {{-- <div class="row">
                                 <div class="col-sm-6 form-group">
-                                    <label>Permission Name</label>
+                                    <label>Order Name</label>
                                     <input class="form-control" name="name" type="text" placeholder="Permission Name"
                                         value="{{ $permission->name }}">
                                 </div>
+                            </div> --}}
+
+
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Car Name</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+
+
+                                    {{-- <th>Status</th> --}}
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {{-- {{ dd($export_order) }} --}}
+                                @foreach ($export_order as $item)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $item->car_name }}</td>
+                                        <td> {{ number_format($item->export_price, 2) }}$</td>
+                                        <td>{{ $item->quantity }}</td>
+
+
+
+                                        {{-- <td>{{ $item->export_status }}</td> --}}
+                                        {{-- <td>
+                                            <div
+                                                class="@php if ($item->export_status == 0) {
+                                                        echo 'btn btn-danger';
+                                                    } elseif ($item->export_status == 1) {
+                                                        echo 'btn btn-success';
+                                                    } else {
+                                                        echo 'btn btn-warning';
+                                                    } @endphp">
+                                                @php
+                                                    if ($item->export_status == 0) {
+                                                        echo 'Pending';
+                                                    } elseif ($item->export_status == 1) {
+                                                        echo 'Done';
+                                                    } else {
+                                                        echo 'Reserved';
+                                                    }
+                                                @endphp
+                                            </div>
+                                        </td> --}}
+                                    </tr>
+                                @endforeach
+
+                                </tr>
+                            </tbody>
+                        </table>
+                        {{-- {{ dd($export_order) }} --}}
+                        <form form method="post"
+                            action="{{ route('admin.export_order.update', ['export_order' => $export_order[0]->export_id]) }}">
+                            @csrf
+                            @method('put')
+
+
+                            <div class="form-group col-md-6">
+                                <label style="font-weight:bold;">Status</label>
+                                <div>
+                                    <label class="ui-radio ui-radio-inline">
+                                        <input type="radio" name="status" id="status" value="0"
+                                            {{ $export_order[0]->export_status == '0' ? 'checked' : '' }}>
+                                        <span class="input-span"></span>Pending</label>
+                                    <label class="ui-radio ui-radio-inline">
+                                        <input type="radio" name="status" id="status" value="2"
+                                            {{ $export_order[0]->export_status == '2' ? 'checked' : '' }}>
+                                        <span class="input-span"></span>Reserved</label> <label
+                                        class="ui-radio ui-radio-inline">
+                                        <input type="radio" name="status" id="status" value="1"
+                                            {{ $export_order[0]->export_status == '1' ? 'checked' : '' }}>
+                                        <span class="input-span"></span>Done</label>
+                                </div>
+                                @error('status')
+                                    <div class="p-2 mb-4 bg-danger text-white">{{ $message }}</div>
+                                @enderror
+
+
+
+
+
                             </div>
 
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Function</th>
-                                        <th>Create</th>
-                                        <th>Read</th>
-                                        <th>Update</th>
-                                        <th>Delete</th>
-                                    </tr>
-                                </thead>
-                                {{-- {{ dd($functions) }} --}}
-                                <tbody>
-                                    @foreach ($permission_detail as $item)
-                                        {{-- {{ dd($permission_detail) }}
-                                        {{ dd($item) }} --}}
-                                        {{-- {{ dd($item->create) }} --}}
-                                        <tr>
-                                            <td><input type="hidden" name="functionName[]" style="border: none;" readonly
-                                                    value="{{ $item->function_id }}"> {{ $item->function_name }}</td>
-
-
-                                            <td> <label class="ui-checkbox ui-checkbox-inline">
-                                                    <input type="checkbox" name="checkBox[{{ $item->function_id }}][0]"
-                                                        value="1" {{ $item->create == 1 ? 'checked' : '' }}>
-                                                    <span class="input-span"></span></label></td>
-                                            <td> <label class="ui-checkbox ui-checkbox-inline">
-                                                    <input type="checkbox" name="checkBox[{{ $item->function_id }}][1]"
-                                                        value="1" {{ $item->read == 1 ? 'checked' : '' }}>
-                                                    <span class="input-span"></span></label></td>
-                                            <td> <label class="ui-checkbox ui-checkbox-inline">
-                                                    <input type="checkbox" name="checkBox[{{ $item->function_id }}][2]"
-                                                        value="1" {{ $item->update == 1 ? 'checked' : '' }}>
-                                                    <span class="input-span"></span></label></td>
-                                            <td> <label class="ui-checkbox ui-checkbox-inline">
-                                                    <input type="checkbox" name="checkBox[{{ $item->function_id }}][3]"
-                                                        value="1" {{ $item->delete == 1 ? 'checked' : '' }}>
-                                                    <span class="input-span"></span></label></td>
-                                        </tr>
-                                    @endforeach
-
-                                    </tr>
-                                </tbody>
-                            </table>
 
                             <input class="btn btn-primary" type="submit" value="Submit" style="cursor: pointer;">
                             <a class="btn btn-success" style="cursor: pointer;"
-                                href="{{ route('admin.permissions.index') }}">Back to
+                                href="{{ route('admin.export_order.index') }}">Back to
                                 list</a>
 
 
