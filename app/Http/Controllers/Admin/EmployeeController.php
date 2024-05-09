@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreAccountRequest;
+use App\Http\Requests\UpdateAccountRequest;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -16,8 +18,6 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-
-
         $account =  DB::table('accounts')->where('user_id', '=', auth()->user()->id)->get();
         $permission =  DB::table('permissions')->where('id', '=',  $account[0]->permission_id)->get();
         $functions =  DB::table('functions')->where('name', '=', 'employees')->get();
@@ -25,11 +25,6 @@ class EmployeeController extends Controller
             ->where('function_id', '=', $functions[0]->id)
             ->where('permission_id', '=', $permission[0]->id)
             ->get();
-
-
-
-
-
         $employees = DB::table('users')
             ->select(
                 'users.*',
@@ -56,7 +51,7 @@ class EmployeeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreAccountRequest $request)
     {
         if ($request->hasFile('image')) {
             $fileOriginalName =  $request->file('image')->getClientOriginalName();
@@ -158,7 +153,7 @@ class EmployeeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateAccountRequest $request, string $id)
     {
         //
         // dd($request->all(), $id);

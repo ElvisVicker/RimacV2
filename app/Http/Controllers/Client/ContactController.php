@@ -15,7 +15,7 @@ class ContactController extends Controller
         return view('client.pages.contact.contact');
     }
 
-    public function store(Request $request)
+    public function store(StoreContactRequest $request)
     {
 
 

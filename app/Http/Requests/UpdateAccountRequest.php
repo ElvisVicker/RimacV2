@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreAccountRequest extends FormRequest
+class UpdateAccountRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -17,7 +17,7 @@ class StoreAccountRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
@@ -27,13 +27,12 @@ class StoreAccountRequest extends FormRequest
             'last_name' => 'required|min:2|max:255',
             'gender' => 'required',
             // 'role' => 'required',
-            'email' => 'required|min:3|max:255|email|unique:users,email',
+
             // 'password' => 'required',
             // 'status' => 'required',
             'phone_number' => 'required|numeric|min_digits:9|max_digits:11',
 
             'permission_id' => 'required',
-
         ];
     }
 }

@@ -120,9 +120,9 @@
                                         </option>
                                     @endforeach
                                 </select>
-                                {{-- @error('brand_id')
+                                @error('permission_id')
                                     <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror --}}
+                                @enderror
                             </div>
 
 

@@ -19,7 +19,11 @@
                                 <div class="col-sm-6 form-group">
                                     <label>Permission Name</label>
                                     <input class="form-control" name="name" type="text" placeholder="Permission Name">
+                                    @error('name')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
+
                             </div>
 
 

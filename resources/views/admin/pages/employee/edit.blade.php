@@ -119,7 +119,7 @@
                             <div class="form-group col-md-4">
                                 <label style="font-weight:bold;">Permission</label>
                                 <select class="form-control" name="permission_id">
-                                    <option value="">--Category--</option>
+                                    <option value="">--Permission--</option>
                                     @foreach ($permissions as $permission)
                                         <option value="{{ $permission->id }}"
                                             {{ $permission->id === $account->permission_id ? 'selected' : '' }}>
@@ -127,7 +127,9 @@
                                         </option>
                                     @endforeach
                                 </select>
-
+                                @error('permission_id')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
 
 
