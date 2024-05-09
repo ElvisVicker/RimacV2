@@ -98,7 +98,7 @@ class CarController extends Controller
             ->join('categories', 'cars.car_category_id', '=', 'categories.id')
             ->join('brands', 'cars.brand_id', '=', 'brands.id')
             ->orderBy('created_at', 'desc')
-            ->paginate(2);
+            ->paginate(20);
 
         return view('client.pages.cars.cars', [
             'cars' => $cars,
@@ -118,7 +118,7 @@ class CarController extends Controller
             ->join('categories', 'cars.car_category_id', '=', 'categories.id')
             ->join('brands', 'cars.brand_id', '=', 'brands.id')
             ->orderBy('created_at', 'desc')
-            ->paginate(2);
+            ->paginate(20);
         return view('client.pages.cars.pagination', [
             'cars' => $cars,
         ])->render();
@@ -131,7 +131,7 @@ class CarController extends Controller
         if ($request->ajax()) {
             $cars = DB::table('cars')
                 ->where('name', 'like', "%{$request->input}%")
-                ->paginate(2);
+                ->paginate(20);
             return view('client.pages.cars.pagination', [
                 'cars' => $cars,
             ])->render();
@@ -198,7 +198,7 @@ class CarController extends Controller
                 $query->where('export_price', '<>', null);
             })
             ->orderBy('created_at', 'desc')
-            ->paginate(2);
+            ->paginate(20);
 
 
         session(['category' => $request->filterCarCategory]);

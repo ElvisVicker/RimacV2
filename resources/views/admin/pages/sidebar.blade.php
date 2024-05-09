@@ -2,11 +2,18 @@
     <div id="sidebar-collapse">
         <div class="admin-block d-flex">
             <div>
-                <img src="{{ asset('images/' . auth()->user()->image) }}"
-                    style="width: 40px; height: 40px; object-fit:cover; border-radius:100px;" />
+
+                @if (Auth::check())
+                    <img src="{{ asset('images/' . auth()->user()->image) }}"
+                        style="width: 40px; height: 40px; object-fit:cover; border-radius:100px;" />
+                @endif
             </div>
             <div class="admin-info">
-                <div class="font-strong"> {{ auth()->user()->name }} {{ auth()->user()->last_name }}</div>
+
+                @if (Auth::check())
+                    <div class="font-strong"> {{ auth()->user()->name }} {{ auth()->user()->last_name }}</div>
+                @endif
+
                 <small>Administrator</small>
             </div>
         </div>
@@ -183,7 +190,7 @@
 
 
 
-        {{-- {{  }} --}}
+
 
 
 

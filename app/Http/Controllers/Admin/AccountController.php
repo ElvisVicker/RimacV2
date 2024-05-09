@@ -100,7 +100,7 @@ class AccountController extends Controller
 
     public function update(ProfileUpdateRequest $request, string $id)
     {
-         }
+    }
 
     public function destroy(string $id)
     {
