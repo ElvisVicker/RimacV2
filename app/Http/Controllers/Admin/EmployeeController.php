@@ -16,9 +16,20 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        // $employees = DB::table('users')->orderBy('created_at', 'desc')->paginate(10);
-        // $employeeRoles = DB::table('employees')->get();
-        // dd($employeeRoles);
+
+
+        $account =  DB::table('accounts')->where('user_id', '=', auth()->user()->id)->get();
+        $permission =  DB::table('permissions')->where('id', '=',  $account[0]->permission_id)->get();
+        $functions =  DB::table('functions')->where('name', '=', 'employees')->get();
+        $permission_detail =  DB::table('permission_details')
+            ->where('function_id', '=', $functions[0]->id)
+            ->where('permission_id', '=', $permission[0]->id)
+            ->get();
+
+
+
+
+
         $employees = DB::table('users')
             ->select(
                 'users.*',
@@ -29,7 +40,7 @@ class EmployeeController extends Controller
             ->where('role', '=', 1)
             ->paginate(10);
 
-        return view('admin.pages.employee.list', ['employees' => $employees]);
+        return view('admin.pages.employee.list', ['employees' => $employees, 'permission_detail' => $permission_detail[0]]);
     }
 
     /**
@@ -54,19 +65,14 @@ class EmployeeController extends Controller
             $request->file('image')->move(public_path('images'),  $fileName);
         }
 
-        // dd($request->all());
+
         $getNextIdUser = DB::select("show table status like 'users'");
         $getNextIdAccount = DB::select("show table status like 'accounts'");
-        // dd($getNextIdUser[0]->Auto_increment);
 
-        // $permission_defalut = ;
-        // dd();
         $permissions = DB::table('permissions')->whereNull('deleted_at')->where('id', '=', $request->permission_id)->get();
 
-        // dd($permissions[0]->name);
         DB::table('users')->insert([
-            // "id" => $getNextIdUser[0]->Auto_increment,
-            // "account_id" => $getNextIdAccount[0]->Auto_increment,
+
             "name" => $request->name,
             "middle_name" => $request->middle_name,
             "last_name" => $request->last_name,
@@ -83,7 +89,7 @@ class EmployeeController extends Controller
             "email_verified_at" => Carbon::now(),
             "remember_token" =>     Str::random(10)
         ]);
-        // dd(DB::table('users')->get());
+
 
         $check = DB::table('accounts')->insert([
             "id" => $getNextIdAccount[0]->Auto_increment,
@@ -111,10 +117,6 @@ class EmployeeController extends Controller
     public function show(string $id)
     {
 
-        // $account = DB::table('users')->find($id);
-
-
-
 
         $employee = DB::table('users')
             ->select(
@@ -124,36 +126,7 @@ class EmployeeController extends Controller
             ->join('employees', 'users.id', '=', 'employees.user_id')
             ->where('users.id', '=', $id)
             ->get();
-        // dd($employees[0]);
-        // $buy_orders = DB::table('buy_orders')
-        //     ->select(
-        //         'buy_orders.id as id',
-        //         'buy_orders.total_price as total_price',
-        //         'buy_orders.created_at',
-        //         'buy_orders.updated_at',
-        //         'buyers.id as buyer_id',
-        //         'buyers.first_name as cus_first_name',
-        //         'buyers.last_name as cus_last_name',
-        //         'cars.id as car_id',
-        //         'cars.name as car_name',
-        //         'cars.price as car_price',
-        //         'cars.status as car_status',
-        //         'users.id as staff_id',
-        //         'users.name as staff_first_name',
-        //         'users.last_name as staff_last_name',
-        //     )
-        //     ->join('cars', 'cars.id', '=', 'car_id')
-        //     ->join('buyers', 'buyers.id', '=', 'buyer_id')
-        //     ->join('users', 'users.id', '=', 'staff_id')
-        //     ->where('staff_id', '=', $id)
-        //     ->orderBy('created_at', 'desc')
-        //     ->paginate(10);
 
-        // $totalCarPrice = 0;
-        // $totalCost = DB::table('buy_orders')->where('staff_id', '=', $id)->get();
-        // foreach ($totalCost as $data) {
-        //     $totalCarPrice += $data->total_price;
-        // };
         return view('admin.pages.employee.detail', ['employee' => $employee[0]]);
     }
 
@@ -209,16 +182,6 @@ class EmployeeController extends Controller
             }
         }
 
-
-
-
-
-
-
-
-
-
-
         $check = DB::table('users')->where('id', '=', $id)->update([
             "name" => $request->name,
             "middle_name" => $request->middle_name,
@@ -241,87 +204,6 @@ class EmployeeController extends Controller
             "updated_at" => Carbon::now(),
             'permission_id' => $request->permission_id,
         ]);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // if ($request->hasFile('image')) {
-        //     $fileOriginalName =  $request->file('image')->getClientOriginalName();
-        //     $fileName = pathinfo($fileOriginalName, PATHINFO_FILENAME);
-        //     $fileName .= '_' . time() . '.' . $request->file('image')->getClientOriginalExtension();
-        //     $request->file('image')->move(public_path('images'),  $fileName);
-        // }
-
-        // // dd($request->all());
-        // $getNextIdUser = DB::select("show table status like 'users'");
-        // $getNextIdAccount = DB::select("show table status like 'accounts'");
-        // // dd($getNextIdUser[0]->Auto_increment);
-
-        // // $permission_defalut = ;
-        // // dd();
-        // $permissions = DB::table('permissions')->whereNull('deleted_at')->where('id', '=', $request->permission_id)->get();
-
-        // // dd($permissions[0]->name);
-        // DB::table('users')->insert([
-        //     // "id" => $getNextIdUser[0]->Auto_increment,
-        //     // "account_id" => $getNextIdAccount[0]->Auto_increment,
-        //     "name" => $request->name,
-        //     "middle_name" => $request->middle_name,
-        //     "last_name" => $request->last_name,
-        //     "gender" => $request->gender,
-        //     "email" => $request->email,
-        //     "password" => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
-        //     "phone_number" => $request->phone_number,
-        //     "address" => $request->address,
-        //     "role" => 1,
-        //     "image" => $fileName ?? null,
-        //     "created_at" => Carbon::now(),
-        //     "updated_at" => Carbon::now(),
-        //     "status" => 1,
-        //     "email_verified_at" => Carbon::now(),
-        //     "remember_token" =>     Str::random(10)
-        // ]);
-        // // dd(DB::table('users')->get());
-
-        // $check = DB::table('accounts')->insert([
-        //     "id" => $getNextIdAccount[0]->Auto_increment,
-        //     "user_id" => $getNextIdUser[0]->Auto_increment,
-        //     "created_at" => Carbon::now(),
-        //     "updated_at" => Carbon::now(),
-        //     "status" => 1,
-        //     'permission_id' => $request->permission_id,
-        // ]);
-
-        // $check = DB::table('employees')->insert([
-        //     "user_id" =>  $getNextIdUser[0]->Auto_increment,
-        //     "position" => $permissions[0]->name,
-        //     "created_at" => Carbon::now(),
-        //     "updated_at" => Carbon::now(),
-        //     "status" => 1,
-        // ]);
-        // $message = $check ? 'Created Account Success' : 'Created Account Fail';
         return redirect()->route('admin.employees.index');
     }
 

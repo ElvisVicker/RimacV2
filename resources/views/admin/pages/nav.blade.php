@@ -5,12 +5,12 @@
         }
     </style>
     <div class="page-brand">
-        {{-- <a class="link" href="{{ route('admin.chart') }}">
+        <a class="link" href="{{ route('admin.chart') }}">
             <span class="brand"> <img src="{{ asset('images/logo.png') }}" height="50px" class="logoFilter" alt=""
                     srcset="">
             </span>
             <span class="brand-mini">RM</span>
-        </a> --}}
+        </a>
     </div>
     <div class="flexbox flex-1">
         <!-- START TOP-LEFT TOOLBAR-->
@@ -24,8 +24,8 @@
         <ul class="nav navbar-toolbar">
             <li class="dropdown dropdown-user">
                 <a class="nav-link dropdown-toggle link" data-toggle="dropdown">
-                    {{-- <img src="{{ asset('images/' . auth()->user()->image) }}"
-                        style="width: 40px; height: 40px; object-fit:cover;" /> --}}
+                    <img src="{{ asset('images/' . auth()->user()->image) }}"
+                        style="width: 40px; height: 40px; object-fit:cover;" />
                     <span></span>Admin<i class="fa fa-angle-down m-l-5"></i></a>
                 <ul class="dropdown-menu dropdown-menu-right">
                     <x-dropdown-link :href="route('profile.edit')" class="dropdown-item">

@@ -12,6 +12,17 @@ class ContactController extends Controller
 {
     public function index()
     {
+        $account =  DB::table('accounts')->where('user_id', '=', auth()->user()->id)->get();
+        $permission =  DB::table('permissions')->where('id', '=',  $account[0]->permission_id)->get();
+        $functions =  DB::table('functions')->where('name', '=', 'contacts')->get();
+        $permission_detail =  DB::table('permission_details')
+            ->where('function_id', '=', $functions[0]->id)
+            ->where('permission_id', '=', $permission[0]->id)
+            ->get();
+
+
+
+
         $contacts = DB::table('contact')
             ->select(
                 'contact.id as id',
@@ -28,7 +39,7 @@ class ContactController extends Controller
             ->paginate(10);
 
 
-        return view('admin.pages.contact.list', ['contacts' => $contacts]);
+        return view('admin.pages.contact.list', ['contacts' => $contacts, 'permission_detail' => $permission_detail[0]]);
     }
 
     public function create()

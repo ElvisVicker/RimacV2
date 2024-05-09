@@ -34,7 +34,7 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         if (Auth::check() && Auth::user()->role === 1) {
-            return redirect()->route('admin.permissions.index');
+            return redirect()->route('admin.chart');
         }
 
         if (Auth::check() && Auth::user()->role === 0) {

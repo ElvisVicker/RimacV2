@@ -14,6 +14,13 @@ class ExportOrderController extends Controller
      */
     public function index()
     {
+        $account =  DB::table('accounts')->where('user_id', '=', auth()->user()->id)->get();
+        $permission =  DB::table('permissions')->where('id', '=',  $account[0]->permission_id)->get();
+        $functions =  DB::table('functions')->where('name', '=', 'exports')->get();
+        $permission_detail =  DB::table('permission_details')
+            ->where('function_id', '=', $functions[0]->id)
+            ->where('permission_id', '=', $permission[0]->id)
+            ->get();
         $export_orders = DB::table('export_orders')
             ->select(
                 'export_orders.id as export_id',
@@ -21,40 +28,16 @@ class ExportOrderController extends Controller
                 'export_orders.customer_id as customer_id',
                 'export_orders.prepay as prepay',
                 'export_orders.created_at as export_created_at',
-                'export_orders.updated_at as export_updated_at',
                 'export_orders.status as export_status',
-                // 'orders.id as orders_id',
-                // 'orders.employee_id as employee_id',
-
                 'users.name as customer_name',
                 'users.last_name as customer_last_name',
 
-                // 'export_details.car_id as car_id',
-                // 'export_details.import_price as import_price',
-                // 'export_details.quantity as quantity',
-
-                // 'cars.name as car_name',
             )
-
-            // ->join('orders', 'orders.id', '=', 'export_orders.order_id')
-            // ->join('import_details', 'import_details.import_id', '=', 'export_orders.id')
             ->join('users', 'users.id', '=', 'export_orders.customer_id')
-
-
-
-            ->orderBy('export_updated_at', 'desc')
-
+            ->orderBy('export_created_at', 'desc')
             ->paginate(10);
-        // ->get();
 
-
-
-
-
-        // dd($export_orders);
-        return view('admin.pages.export_order.list', ['export_orders' => $export_orders]);
-
-        // return view('admin.pages.import_order.list', ['export_orders' => $export_orders]);
+        return view('admin.pages.export_order.list', ['export_orders' => $export_orders, 'permission_detail' => $permission_detail[0]]);
     }
 
     /**
@@ -85,23 +68,12 @@ class ExportOrderController extends Controller
                 'export_orders.order_id as order_id',
                 'export_orders.created_at as export_created_at',
                 'export_orders.status as export_status',
-
-                // 'export_orders.customer_id as customer_id',
                 'export_orders.customer_id as customer_id',
-
                 'export_details.car_id as car_id',
                 'export_details.export_price as export_price',
                 'export_details.quantity as quantity',
-
-
                 'users.name as customer_name',
                 'users.last_name as customer_last_name',
-
-                // 'users.image as user_image',
-
-
-
-
                 'orders.employee_id as employee_id',
                 'cars.name as car_name',
             )
@@ -109,13 +81,12 @@ class ExportOrderController extends Controller
             ->join('orders', 'orders.id', '=', 'export_orders.order_id')
             ->join('export_details', 'export_details.export_id', '=', 'export_orders.id')
             ->join('cars', 'cars.id', '=', 'export_details.car_id')
-            // ->join('users', 'users.id', '=', 'orders.customer_id')
             ->join('users', 'users.id', '=', 'export_orders.customer_id')
             ->where('export_orders.id', '=', $id)
 
             ->get();
 
-        // dd($export_order);
+
 
         return view(
             'admin.pages.export_order.detail',
@@ -139,32 +110,25 @@ class ExportOrderController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        // dd($request->all());
-
-        // DB::table('import_orders')->insert([
-        //     "id" => $getNextIdImport[0]->Auto_increment,
-        //     "order_id" => $getNextIdOrder[0]->Auto_increment,
-        //     "status" => 1,
-        //     "created_at" => Carbon::now(),
-        //     "updated_at" => Carbon::now()
-        // ]);
+        if ($request->status == '1') {
+            $detail_exports =  DB::table('export_details')->where('export_id', '=', $id)->get();
+            foreach ($detail_exports as $detail_export) {
+                $car = DB::table('cars')->where('id', '=',  $detail_export->car_id)->get();
+                DB::table('cars')->where('id', '=', $detail_export->car_id)->update([
+                    "quantity" => $car[0]->quantity -= $detail_export->quantity,
+                ]);
+            }
+        }
 
         $order_id = DB::table('export_orders')->where('id', '=', $id)->get('order_id');
-        // dd($order_id[0]);
         DB::table('orders')->where('id', '=', $order_id[0]->order_id)->update([
             "employee_id" => auth()->user()->id,
         ]);
-
-
-
-
         $check = DB::table('export_orders')->where('id', '=', $id)->update([
             "status" => $request->status,
             "updated_at" => Carbon::now()
         ]);
-        // dd($check);
         $message = $check ? 'Updated Buy Order Success' : 'Updated Buy Order Fail';
-
         return redirect()->route('admin.export_order.index')->with('message', $message);
     }
 

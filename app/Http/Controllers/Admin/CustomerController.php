@@ -14,6 +14,14 @@ class CustomerController extends Controller
      */
     public function index()
     {
+        $account =  DB::table('accounts')->where('user_id', '=', auth()->user()->id)->get();
+        $permission =  DB::table('permissions')->where('id', '=',  $account[0]->permission_id)->get();
+        $functions =  DB::table('functions')->where('name', '=', 'customers')->get();
+        $permission_detail =  DB::table('permission_details')
+            ->where('function_id', '=', $functions[0]->id)
+            ->where('permission_id', '=', $permission[0]->id)
+            ->get();
+
 
         $customers = DB::table('users')
             ->select(
@@ -27,8 +35,7 @@ class CustomerController extends Controller
             ->where('role', '=', 0)
             ->paginate(10);
 
-
-        return view('admin.pages.customer.list', ['customers' => $customers]);
+        return view('admin.pages.customer.list', ['customers' => $customers, 'permission_detail' => $permission_detail[0]]);
     }
 
     /**

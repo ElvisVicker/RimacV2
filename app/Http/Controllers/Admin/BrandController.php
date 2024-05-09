@@ -13,8 +13,21 @@ class BrandController extends Controller
 {
     public function index()
     {
+
+        // Phan quyen dong
+        $account =  DB::table('accounts')->where('user_id', '=', auth()->user()->id)->get();
+        $permission =  DB::table('permissions')->where('id', '=',  $account[0]->permission_id)->get();
+        $functions =  DB::table('functions')->where('name', '=', 'brands')->get();
+        $permission_detail =  DB::table('permission_details')
+            ->where('function_id', '=', $functions[0]->id)
+            ->where('permission_id', '=', $permission[0]->id)
+            ->get();
+
+
+
+
         $brands = DB::table('brands')->orderBy('created_at', 'desc')->paginate(10);
-        return view('admin.pages.brand.list', ['brands' => $brands]);
+        return view('admin.pages.brand.list', ['brands' => $brands, 'permission_detail' => $permission_detail[0]]);
     }
 
     public function create()

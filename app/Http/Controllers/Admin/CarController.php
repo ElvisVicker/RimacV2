@@ -14,6 +14,17 @@ class CarController extends Controller
 {
     public function index()
     {
+
+        $account =  DB::table('accounts')->where('user_id', '=', auth()->user()->id)->get();
+        $permission =  DB::table('permissions')->where('id', '=',  $account[0]->permission_id)->get();
+        $functions =  DB::table('functions')->where('name', '=', 'cars')->get();
+        $permission_detail =  DB::table('permission_details')
+            ->where('function_id', '=', $functions[0]->id)
+            ->where('permission_id', '=', $permission[0]->id)
+            ->get();
+
+
+
         $cars = DB::table('cars')
             ->select(
                 'cars.*',
@@ -31,7 +42,7 @@ class CarController extends Controller
 
 
         // dd($cars);
-        return view('admin.pages.car.list', ['cars' => $cars]);
+        return view('admin.pages.car.list', ['cars' => $cars, 'permission_detail' => $permission_detail[0]]);
     }
 
     public function create()

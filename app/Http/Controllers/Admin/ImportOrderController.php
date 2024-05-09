@@ -14,27 +14,18 @@ class ImportOrderController extends Controller
      */
     public function index()
     {
-        // $import_orders = DB::table('import_orders')
-        //     ->select(
-        //         'import_orders.id as id',
-        //         'import_orders.total_price as total_price',
-        //         'import_orders.created_at',
-        //         'buyers.id as buyer_id',
-        //         'buyers.first_name as cus_first_name',
-        //         'buyers.last_name as cus_last_name',
-        //         'cars.id as car_id',
-        //         'cars.name as car_name',
-        //         'cars.price as car_price',
-        //         'cars.status as car_status',
-        //         'users.id as staff_id',
-        //         'users.name as staff_first_name',
-        //         'users.last_name as staff_last_name',
-        //     )
-        //     ->join('cars', 'cars.id', '=', 'car_id')
-        //     ->join('buyers', 'buyers.id', '=', 'buyer_id')
-        //     ->join('users', 'users.id', '=', 'staff_id')
-        //     ->orderBy('created_at', 'desc')
-        //     ->paginate(10);
+
+
+        $account =  DB::table('accounts')->where('user_id', '=', auth()->user()->id)->get();
+        $permission =  DB::table('permissions')->where('id', '=',  $account[0]->permission_id)->get();
+        $functions =  DB::table('functions')->where('name', '=', 'imports')->get();
+        $permission_detail =  DB::table('permission_details')
+            ->where('function_id', '=', $functions[0]->id)
+            ->where('permission_id', '=', $permission[0]->id)
+            ->get();
+
+
+
         $import_orders = DB::table('import_orders')
             ->select(
                 'import_orders.id as import_id',
@@ -62,7 +53,7 @@ class ImportOrderController extends Controller
         // ->get();
         // dd($import_orders);
 
-        return view('admin.pages.import_order.list', ['import_orders' => $import_orders]);
+        return view('admin.pages.import_order.list', ['import_orders' => $import_orders, 'permission_detail' => $permission_detail[0]]);
     }
 
     /**
@@ -74,8 +65,7 @@ class ImportOrderController extends Controller
 
 
         $cars = DB::table('cars')->where('status', '=', 1)->get();
-        // dd($cars);
-        // dd($order_categories);
+
         return view(
             'admin.pages.import_order.create',
             [
@@ -90,7 +80,6 @@ class ImportOrderController extends Controller
     public function store(Request $request)
     {
         $order_categories = DB::table('order_categories')->where('status', '=', 1)->get();
-        // dd($request->all());
         $getNextIdOrder = DB::select("show table status like 'orders'");
         $getNextIdImport = DB::select("show table status like 'import_orders'");
 
@@ -98,11 +87,7 @@ class ImportOrderController extends Controller
 
 
         $car = DB::table('cars')->where('id', '=', $request->car)->get();
-        // dd($cars[0]->quantity += $request->quantity);
-        // id = 1 -> import
 
-        // dd($order_categories[0]->id);
-        // dd();
         DB::table('orders')->insert([
             "id" => $getNextIdOrder[0]->Auto_increment,
             "employee_id" => auth()->user()->id,
@@ -145,10 +130,6 @@ class ImportOrderController extends Controller
      */
     public function show(string $id)
     {
-
-
-
-
         $import_order = DB::table('import_orders')
             ->select(
                 'import_orders.id as import_id',

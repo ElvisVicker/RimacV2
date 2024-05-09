@@ -89,37 +89,7 @@ if ($export_order->status == 0) {
                                             href="{{ route('client.library.show', ['library' => $export_order->id]) }}">Detail</a>
                                     </td>
 
-                                    {{-- <td>
-                                        @php
-                                            $imagesLink = is_null($car->image) || !file_exists('images/' . $car->image) ? 'https://phutungnhapkhauchinhhang.com/wp-content/uploads/2020/06/default-thumbnail.jpg' : asset('images/' . $car->image);
-                                        @endphp
-                                        <img rounded-circle flex-shrink-0 src="{{ $imagesLink }}" alt=""
-                                            srcset="" style=" height: 50px; object-fit:cover;">
-                                    </td> --}}
 
-
-
-                                    {{-- <td style="display: flex; gap:4px;">
-                                        <a class="btn btn-primary" style="cursor: pointer;"
-                                            href="{{ route('admin.car.show', ['car' => $car->id]) }}">Edit</a>
-
-                                        @if (is_null($car->deleted_at))
-                                            <form action="{{ route('admin.car.destroy', ['car' => $car->id]) }}"
-                                                method="post">
-                                                @csrf
-                                                @method('delete')
-                                                <button class="btn btn-danger" type="submit" name="delete"
-                                                    onclick="return confirm('Are you sure?')" style="cursor: pointer;">
-                                                    Delete
-                                                </button>
-                                            </form>
-                                        @endif
-
-                                        @if (!is_null($car->deleted_at))
-                                            <a href="{{ route('admin.car.restore', ['car' => $car->id]) }}"
-                                                class="btn btn-success" style="cursor: pointer;">Restore</a>
-                                        @endif
-                                    </td> --}}
                                 </tr>
                             @empty
                                 <tr>

@@ -117,30 +117,11 @@ Route::prefix('')->middleware('auth.admin')->name('admin.')->group(function () {
     Route::resource('contact', ContactController::class);
 
 
-
-
-
-
-
-
-    // // Contact
-    // Route::resource('contact', ContactController::class);
-
-    // //Buy Order
-    // Route::resource('buy_order', AdminBuyOrderController::class);
-
     // //Dashboard
-    // Route::get('chart', [ChartController::class, 'index'])->name('chart');
+    Route::get('chart', [ChartController::class, 'index'])->name('chart');
 });
 
 
-// Route::prefix('staff')->middleware('auth.staff')->name('staff.')->group(function () {
-//     Route::resource('buyer', StaffBuyerController::class);
-//     Route::get('buyer/send_to_order/{id}', [StaffBuyerController::class, 'sendToOrder'])->name('buyer.send_to_order');
-//     Route::resource('contact', StaffContactController::class);
-//     Route::resource('buy_order', BuyOrderController::class);
-// });
-// ->middleware('auth.customer')
 
 Route::prefix('client')->name('client.')->group(function () {
     Route::get('home', [HomeController::class, 'index'])->name('home');

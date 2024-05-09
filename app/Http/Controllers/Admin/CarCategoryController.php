@@ -14,8 +14,19 @@ class CarCategoryController extends Controller
 
     public function index(Request $request)
     {
+        $account =  DB::table('accounts')->where('user_id', '=', auth()->user()->id)->get();
+        $permission =  DB::table('permissions')->where('id', '=',  $account[0]->permission_id)->get();
+        $functions =  DB::table('functions')->where('name', '=', 'categories')->get();
+        $permission_detail =  DB::table('permission_details')
+            ->where('function_id', '=', $functions[0]->id)
+            ->where('permission_id', '=', $permission[0]->id)
+            ->get();
+
+
+        // dd($permission_detail);
+
         $carCategories = DB::table('categories')->orderBy('created_at', 'desc')->paginate(10);
-        return view('admin.pages.car_category.list', ['carCategories' => $carCategories]);
+        return view('admin.pages.car_category.list', ['carCategories' => $carCategories, 'permission_detail' =>  $permission_detail[0]]);
     }
 
     public function create()
