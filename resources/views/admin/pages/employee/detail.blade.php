@@ -73,7 +73,7 @@
                                             </div>
 
                                             <div class="form-group col-md-6">
-                                                <h4 class="font-weight-bold">employee's Created Date</h4>
+                                                <h4 class="font-weight-bold">Employee's Created Date</h4>
 
                                                 <h5> {{ date('d/m/Y', strtotime($employee->created_at)) }}</h5>
                                             </div>

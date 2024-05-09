@@ -52,8 +52,8 @@ class ChartController extends Controller
 
         // Total Car Price
         $totalCarImportPrice = 0;
-        $totalCost = DB::table('cars')->get();
-
+        $totalCost = DB::table('import_details')->get();
+        // dd($totalCost);
 
         foreach ($totalCost as $data) {
 
