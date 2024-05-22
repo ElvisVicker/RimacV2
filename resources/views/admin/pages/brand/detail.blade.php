@@ -11,6 +11,7 @@
                         <a class="fullscreen-link"><i class="fa fa-expand"></i></a>
                     </div>
                 </div>
+
                 <div class="ibox-body">
                     <form enctype="multipart/form-data" method="post"
                         action="{{ route('admin.brand.update', ['brand' => $brand->id]) }}">

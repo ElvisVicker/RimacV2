@@ -38,8 +38,7 @@ class CarCategoryController extends Controller
     {
         $check = DB::table('categories')->insert([
             "name" => $request->name,
-            // "description" => $request->description,
-            // "rent_price" => 1,
+
             "status" => 1,
             "created_at" => Carbon::now(),
             "updated_at" => Carbon::now()
@@ -63,9 +62,7 @@ class CarCategoryController extends Controller
     {
         $check = DB::table('categories')->where('id', '=', $id)->update([
             "name" => $request->name,
-            // "description" => $request->description,
-            // "rent_price" => 1,
-            // "status" => 1,
+
             "updated_at" => Carbon::now()
         ]);
 

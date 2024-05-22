@@ -14,6 +14,7 @@ class BrandController extends Controller
     public function index()
     {
 
+
         // Phan quyen dong
         $account =  DB::table('accounts')->where('user_id', '=', auth()->user()->id)->get();
         $permission =  DB::table('permissions')->where('id', '=',  $account[0]->permission_id)->get();
@@ -27,6 +28,7 @@ class BrandController extends Controller
 
 
         $brands = DB::table('brands')->orderBy('created_at', 'desc')->paginate(10);
+
         return view('admin.pages.brand.list', ['brands' => $brands, 'permission_detail' => $permission_detail[0]]);
     }
 
@@ -37,6 +39,7 @@ class BrandController extends Controller
 
     public function store(StoreBrandRequest $request)
     {
+
         if ($request->hasFile('image')) {
             $fileOriginalName =  $request->file('image')->getClientOriginalName();
             $fileName = pathinfo($fileOriginalName, PATHINFO_FILENAME);
@@ -60,6 +63,7 @@ class BrandController extends Controller
     public function show(string $id)
     {
         $brand = DB::table('brands')->find($id);
+
         return view('admin.pages.brand.detail', ['brand' => $brand]);
     }
 

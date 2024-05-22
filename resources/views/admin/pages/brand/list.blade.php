@@ -28,6 +28,7 @@
                                     <th>Action</th>
                                 </tr>
                             </thead>
+
                             <tbody>
                                 @forelse ($brands as $brand)
                                     <tr>
@@ -40,6 +41,9 @@
                                                         ? 'https://phutungnhapkhauchinhhang.com/wp-content/uploads/2020/06/default-thumbnail.jpg'
                                                         : asset('images/' . $brand->image);
                                             @endphp
+
+
+                                            {{-- {{ dd($imagesLink) }} --}}
                                             <img rounded-circle flex-shrink-0 src="{{ $imagesLink }}" alt=""
                                                 srcset="" style=" height: 50px; object-fit:cover;">
                                         </td>
@@ -55,8 +59,7 @@
 
 
                                         <td style="display: flex; gap:4px;">
-
-
+                                            {{-- {{ dd($brand->id) }} --}}
                                             @if ($permission_detail->update == '1')
                                                 <a class="btn btn-primary" style="cursor: pointer;"
                                                     href="{{ route('admin.brand.show', ['brand' => $brand->id]) }}">Edit</a>
